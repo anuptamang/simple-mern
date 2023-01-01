@@ -1,4 +1,4 @@
-import MenuIcon from '@mui/icons-material/Menu'
+import MenuIcon from '@mui/icons-material/Menu';
 import {
   AppBar,
   Avatar,
@@ -14,45 +14,45 @@ import {
   Toolbar,
   Tooltip,
   Typography,
-} from '@mui/material'
-import { MouseEvent, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { nav } from '../../data/static/nav'
-import { useAuth } from '../../hooks/useAuth'
-import { logout } from '../../redux/auth/authAction'
-import { authSelector } from '../../redux/auth/authSlice'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { BtnLoading } from '../UI/BtnLoading'
-import Link from '../UI/Link'
-import NavLink from '../UI/NavLink'
+} from '@mui/material';
+import { MouseEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { nav } from '../../data/static/nav';
+import { useAuth } from '../../hooks/useAuth';
+import { logout } from '../../redux/auth/authAction';
+import { authSelector } from '../../redux/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { BtnLoading } from '../UI/BtnLoading';
+import Link from '../UI/Link';
+import NavLink from '../UI/NavLink';
 
 interface Props {
-  window?: () => Window
+  window?: () => Window;
 }
 
-const drawerWidth = 240
+const drawerWidth = 240;
 
 const Header = (props: Props) => {
-  const { window } = props
-  const { user } = useAuth()
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const { loading } = useAppSelector(authSelector)
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
+  const { window } = props;
+  const { user } = useAuth();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const { loading } = useAppSelector(authSelector);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState)
-  }
+    setMobileOpen((prevState) => !prevState);
+  };
 
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget)
-  }
+    setAnchorElUser(event.currentTarget);
+  };
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null)
-  }
+    setAnchorElUser(null);
+  };
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
@@ -78,9 +78,9 @@ const Header = (props: Props) => {
         ))}
       </List>
     </Box>
-  )
+  );
   const container =
-    window !== undefined ? () => window().document.body : undefined
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
     <>
@@ -260,7 +260,7 @@ const Header = (props: Props) => {
         </Drawer>
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

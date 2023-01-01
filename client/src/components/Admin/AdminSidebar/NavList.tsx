@@ -1,6 +1,6 @@
-import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
-import { DashboardIcon, PostsIcon, TasksIcon } from '../../UI/Icons'
-import NavLink from '../../UI/NavLink'
+import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { DashboardIcon, PostsIcon, TasksIcon } from '../../UI/Icons';
+import NavLink from '../../UI/NavLink';
 
 const NavList = () => {
   return (
@@ -51,7 +51,7 @@ const NavList = () => {
         </NavLink>
       </ListItem>
     </List>
-  )
-}
+  );
+};
 
-export default NavList
+export default NavList;

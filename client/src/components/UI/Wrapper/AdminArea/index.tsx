@@ -1,7 +1,7 @@
-import React from 'react'
-import { ChildrenProps } from '../../../../types'
-import { Grid } from '@mui/material'
-import { Container } from '@mui/system'
+import React from 'react';
+import { ChildrenProps } from '../../../../types';
+import { Grid } from '@mui/material';
+import { Container } from '@mui/system';
 
 const AdminArea = ({ children }: ChildrenProps) => {
   return (
@@ -10,7 +10,7 @@ const AdminArea = ({ children }: ChildrenProps) => {
         {children}
       </Grid>
     </Container>
-  )
-}
+  );
+};
 
-export default AdminArea
+export default AdminArea;

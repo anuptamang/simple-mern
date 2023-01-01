@@ -1,8 +1,7 @@
 {
   "env": {
     "browser": true,
-    "es2021": true,
-    "node": true
+    "es2021": true
   },
   "extends": [
     "eslint:recommended",
@@ -34,22 +33,12 @@
     },
     "import/resolver": {
       "typescript": {
-        "alwaysTryTypes": false,
+        "alwaysTryTypes": true,
         "project": "tsconfig.json"
       }
     }
   },
   "rules": {
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ],
     "react/jsx-filename-extension": [
       1,
       {

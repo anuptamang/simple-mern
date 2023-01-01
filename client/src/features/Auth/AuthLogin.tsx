@@ -1,23 +1,23 @@
-import { yupResolver } from '@hookform/resolvers/yup'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
-import LoginSection from '../../components/Auth/LoginSection'
-import { authSelector } from '../../redux/auth/authSlice'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { loginFormSchema } from '../../utils/validationSchema'
-import loginBanner from '../../assets/images/img-login.jpg'
-import { login } from '../../redux/auth/authAction'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import LoginSection from '../../components/Auth/LoginSection';
+import { authSelector } from '../../redux/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { loginFormSchema } from '../../utils/validationSchema';
+import loginBanner from '../../assets/images/img-login.jpg';
+import { login } from '../../redux/auth/authAction';
 
 type IFormInput = {
-  email: string
-  password: string
-}
+  email: string;
+  password: string;
+};
 
 const AuthLogin = () => {
-  const { loading } = useAppSelector(authSelector)
+  const { loading } = useAppSelector(authSelector);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const navigate = useNavigate()
-  const dispatch = useAppDispatch()
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const {
     control,
@@ -30,11 +30,11 @@ const AuthLogin = () => {
       password: '',
     },
     resolver: yupResolver(loginFormSchema),
-  })
+  });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    dispatch(login({ email: data.email, password: data.password }, reset))
-  }
+    dispatch(login({ email: data.email, password: data.password }, reset));
+  };
 
   // function handleSubmit(event: { preventDefault: () => void }) {
   //   event.preventDefault()
@@ -52,7 +52,7 @@ const AuthLogin = () => {
         loading={loading}
       />
     </>
-  )
-}
+  );
+};
 
-export default AuthLogin
+export default AuthLogin;

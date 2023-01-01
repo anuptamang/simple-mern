@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
-import { Link } from '@mui/material'
+import styled from '@emotion/styled';
+import { Link } from '@mui/material';
 
 export const IconHolder = styled(Link)`
   display: flex;
@@ -18,4 +18,4 @@ export const IconHolder = styled(Link)`
   &:hover {
     opacity: 0.8;
   }
-`
+`;

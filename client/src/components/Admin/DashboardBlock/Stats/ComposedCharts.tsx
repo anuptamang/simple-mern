@@ -9,7 +9,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-} from 'recharts'
+} from 'recharts';
 
 const data = [
   {
@@ -48,7 +48,7 @@ const data = [
     pv: 680,
     amt: 1700,
   },
-]
+];
 
 export const ComposedCharts = () => {
   return (
@@ -88,5 +88,5 @@ export const ComposedCharts = () => {
         <Line type="monotone" dataKey="uv" stroke="#ff7300" />
       </ComposedChart>
     </ResponsiveContainer>
-  )
-}
+  );
+};

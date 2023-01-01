@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 
 export const S = {
   Wrapper: styled.div`
@@ -9,4 +9,4 @@ export const S = {
     flex-direction: column;
     overflow: hidden;
   `,
-}
+};

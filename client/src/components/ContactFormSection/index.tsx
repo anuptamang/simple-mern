@@ -1,23 +1,23 @@
-import { yupResolver } from '@hookform/resolvers/yup'
-import { Box, Container, Grid, Typography } from '@mui/material'
-import { useState } from 'react'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { delay } from '../../utils/delay'
-import { notify } from '../../utils/notification'
-import { contactFormSchema } from '../../utils/validationSchema'
-import { BtnLoading } from '../UI/BtnLoading'
-import { InputForm } from '../UI/InputForm'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Box, Container, Grid, Typography } from '@mui/material';
+import { useState } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { delay } from '../../utils/delay';
+import { notify } from '../../utils/notification';
+import { contactFormSchema } from '../../utils/validationSchema';
+import { BtnLoading } from '../UI/BtnLoading';
+import { InputForm } from '../UI/InputForm';
 
 type IFormInput = {
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  message: string
-}
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  message: string;
+};
 
 const ContactFormSection = () => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const {
     control,
     formState: { errors },
@@ -32,16 +32,16 @@ const ContactFormSection = () => {
       phone: '',
     },
     resolver: yupResolver(contactFormSchema),
-  })
+  });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    setLoading(true)
-    console.log(data)
-    await delay(3000)
-    reset()
-    setLoading(false)
-    notify('Form submitted successfully', 'contact-form', 'success')
-  }
+    setLoading(true);
+    console.log(data);
+    await delay(3000);
+    reset();
+    setLoading(false);
+    notify('Form submitted successfully', 'contact-form', 'success');
+  };
   return (
     <Container sx={{ py: '120px' }}>
       <Grid container justifyContent="center">
@@ -160,7 +160,7 @@ const ContactFormSection = () => {
         </Grid>
       </Grid>
     </Container>
-  )
-}
+  );
+};
 
-export default ContactFormSection
+export default ContactFormSection;

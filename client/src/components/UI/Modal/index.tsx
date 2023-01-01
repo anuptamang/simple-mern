@@ -1,4 +1,4 @@
-import { Box, Fade, Modal as MuiModal } from '@mui/material'
+import { Box, Fade, Modal as MuiModal } from '@mui/material';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -13,7 +13,7 @@ const style = {
   maxWidth: '1100px',
   borderRadius: '20px',
   p: 4,
-}
+};
 
 const Modal = ({ open, handleClose, children }: any) => {
   return (
@@ -22,7 +22,7 @@ const Modal = ({ open, handleClose, children }: any) => {
         <Box sx={style}>{children}</Box>
       </Fade>
     </MuiModal>
-  )
-}
+  );
+};
 
-export default Modal
+export default Modal;

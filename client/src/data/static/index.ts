@@ -1,2 +1,2 @@
-export * from './images'
-export * from './nav'
+export * from './images';
+export * from './nav';

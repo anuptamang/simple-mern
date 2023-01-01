@@ -1,4 +1,4 @@
-import { DataGrid } from '@mui/x-data-grid'
+import { DataGrid } from '@mui/x-data-grid';
 
 const PostList = ({ columns, rows }: any) => {
   return (
@@ -50,7 +50,7 @@ const PostList = ({ columns, rows }: any) => {
         }}
       />
     </div>
-  )
-}
+  );
+};
 
-export default PostList
+export default PostList;

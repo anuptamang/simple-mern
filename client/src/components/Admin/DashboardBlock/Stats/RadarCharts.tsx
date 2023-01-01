@@ -5,7 +5,7 @@ import {
   Radar,
   RadarChart,
   ResponsiveContainer,
-} from 'recharts'
+} from 'recharts';
 
 const data = [
   {
@@ -44,7 +44,7 @@ const data = [
     B: 85,
     fullMark: 150,
   },
-]
+];
 
 export const RadarCharts = () => {
   return (
@@ -62,5 +62,5 @@ export const RadarCharts = () => {
         />
       </RadarChart>
     </ResponsiveContainer>
-  )
-}
+  );
+};

@@ -1,41 +1,41 @@
-import { Box, Grid, Typography } from '@mui/material'
-import { GridActionsCellItem } from '@mui/x-data-grid'
-import { useState } from 'react'
-import { PostsIcon } from '../../UI/Icons'
-import PostCreate from './PostCreate'
-import PostDelete from './PostDelete'
-import PostEdit from './PostEdit'
-import PostList from './PostList'
-import { PostProps } from '../../../types/post'
+import { Box, Grid, Typography } from '@mui/material';
+import { GridActionsCellItem } from '@mui/x-data-grid';
+import { useState } from 'react';
+import { PostsIcon } from '../../UI/Icons';
+import PostCreate from './PostCreate';
+import PostDelete from './PostDelete';
+import PostEdit from './PostEdit';
+import PostList from './PostList';
+import { PostProps } from '../../../types/post';
 
 export default function PostsBlock() {
-  const [rows, setRows] = useState<PostProps[]>([])
-  const [editPost, setEditPost] = useState<PostProps>()
-  const [deleteId, setDeleteId] = useState<string>('')
+  const [rows, setRows] = useState<PostProps[]>([]);
+  const [editPost, setEditPost] = useState<PostProps>();
+  const [deleteId, setDeleteId] = useState<string>('');
 
-  const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  const [openEdit, setOpenEdit] = useState(false)
-  const handleOpenEdit = () => setOpenEdit(true)
-  const handleCloseEdit = () => setOpenEdit(false)
+  const [openEdit, setOpenEdit] = useState(false);
+  const handleOpenEdit = () => setOpenEdit(true);
+  const handleCloseEdit = () => setOpenEdit(false);
 
-  const [openDelete, setOpenDelete] = useState(false)
-  const handleOpenDelete = () => setOpenDelete(true)
-  const handleCloseDelete = () => setOpenDelete(false)
+  const [openDelete, setOpenDelete] = useState(false);
+  const handleOpenDelete = () => setOpenDelete(true);
+  const handleCloseDelete = () => setOpenDelete(false);
 
   const handleEdit = (id: string) => {
-    handleOpenEdit()
+    handleOpenEdit();
     if (rows.length > 0) {
-      const toEdit = rows.find((row: PostProps) => row.id === id)
-      setEditPost(toEdit)
+      const toEdit = rows.find((row: PostProps) => row.id === id);
+      setEditPost(toEdit);
     }
-  }
+  };
   const handleDelete = (id: string) => {
-    handleOpenDelete()
-    setDeleteId(id)
-  }
+    handleOpenDelete();
+    setDeleteId(id);
+  };
 
   const columns = [
     { field: 'title', headerName: 'Post', width: 300, sortable: false },
@@ -64,7 +64,7 @@ export default function PostsBlock() {
         />,
       ],
     },
-  ]
+  ];
 
   return (
     <>
@@ -111,5 +111,5 @@ export default function PostsBlock() {
         <PostList rows={rows} columns={columns} />
       )}
     </>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-import TasksBlock from '../../components/Admin/TasksBlock'
+import TasksBlock from '../../components/Admin/TasksBlock';
 
-type Props = {}
+type Props = {};
 
 const TasksSection = (props: Props) => {
-  return <TasksBlock />
-}
+  return <TasksBlock />;
+};
 
-export default TasksSection
+export default TasksSection;

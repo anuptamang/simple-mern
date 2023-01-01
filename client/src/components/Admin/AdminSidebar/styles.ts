@@ -3,4 +3,4 @@
 //   border-radius: 20px;
 //   color: #fff;
 // `
-export {}
+export {};

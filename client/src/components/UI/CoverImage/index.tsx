@@ -1,8 +1,8 @@
-import { S } from './styles'
+import { S } from './styles';
 
 interface Iprops {
-  imageUrl: string | undefined
-  imageAlt: string
+  imageUrl: string | undefined;
+  imageAlt: string;
 }
 
 const CoverImage = ({ imageUrl, imageAlt }: Iprops) => {
@@ -10,7 +10,7 @@ const CoverImage = ({ imageUrl, imageAlt }: Iprops) => {
     <S.ImageHolder>
       <S.Image src={imageUrl && imageUrl} alt={imageAlt && imageAlt} />
     </S.ImageHolder>
-  )
-}
+  );
+};
 
-export default CoverImage
+export default CoverImage;

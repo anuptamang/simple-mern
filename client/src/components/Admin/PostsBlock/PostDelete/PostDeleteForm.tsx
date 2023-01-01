@@ -1,23 +1,23 @@
-import { Button, Stack, Typography } from '@mui/material'
-import { red } from '@mui/material/colors'
-import { useState } from 'react'
-import { delay } from '../../../../utils/delay'
-import { notify } from '../../../../utils/notification'
-import { BtnLoading } from '../../../UI/BtnLoading'
+import { Button, Stack, Typography } from '@mui/material';
+import { red } from '@mui/material/colors';
+import { useState } from 'react';
+import { delay } from '../../../../utils/delay';
+import { notify } from '../../../../utils/notification';
+import { BtnLoading } from '../../../UI/BtnLoading';
 
 const PostDeleteForm = ({ rows, setRows, handleClose, deleteId }: any) => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
-    setLoading(true)
-    await delay(3000)
-    handleClose()
-    const newData = rows.filter((post: any) => post.id !== deleteId)
-    setRows(newData)
+    setLoading(true);
+    await delay(3000);
+    handleClose();
+    const newData = rows.filter((post: any) => post.id !== deleteId);
+    setRows(newData);
 
-    setLoading(false)
-    notify('Post Deleted successfully', 'post-delete-form', 'success')
-  }
+    setLoading(false);
+    notify('Post Deleted successfully', 'post-delete-form', 'success');
+  };
 
   return (
     <>
@@ -49,7 +49,7 @@ const PostDeleteForm = ({ rows, setRows, handleClose, deleteId }: any) => {
         </BtnLoading>
       </Stack>
     </>
-  )
-}
+  );
+};
 
-export default PostDeleteForm
+export default PostDeleteForm;

@@ -1,29 +1,29 @@
-import { yupResolver } from '@hookform/resolvers/yup'
-import { Box, Grid } from '@mui/material'
-import { useState } from 'react'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { v4 as uuidv4 } from 'uuid'
-import { delay } from '../../../../utils/delay'
-import { notify } from '../../../../utils/notification'
-import { tasksSchema } from '../../../../utils/validationSchema'
-import { BtnLoading } from '../../../UI/BtnLoading'
-import { InputForm } from '../../../UI/InputForm'
-import { TaskProps } from '../../../../types/task'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Box, Grid } from '@mui/material';
+import { useState } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { v4 as uuidv4 } from 'uuid';
+import { delay } from '../../../../utils/delay';
+import { notify } from '../../../../utils/notification';
+import { tasksSchema } from '../../../../utils/validationSchema';
+import { BtnLoading } from '../../../UI/BtnLoading';
+import { InputForm } from '../../../UI/InputForm';
+import { TaskProps } from '../../../../types/task';
 
 type IFormInput = {
-  title: string
-  id?: string
-  completed?: boolean
-  pinned?: boolean
-}
+  title: string;
+  id?: string;
+  completed?: boolean;
+  pinned?: boolean;
+};
 
 type TaskCreateProps = {
-  tasks: TaskProps[]
-  setTasks: any
-}
+  tasks: TaskProps[];
+  setTasks: any;
+};
 
 const TaskCreate = ({ tasks, setTasks }: TaskCreateProps) => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const {
     control,
     formState: { errors },
@@ -34,20 +34,20 @@ const TaskCreate = ({ tasks, setTasks }: TaskCreateProps) => {
       title: '',
     },
     resolver: yupResolver(tasksSchema),
-  })
+  });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    setLoading(true)
-    console.log(data)
-    await delay(3000)
+    setLoading(true);
+    console.log(data);
+    await delay(3000);
     setTasks((prev: TaskProps[]) => [
       ...prev,
       { id: uuidv4(), title: data.title },
-    ])
-    reset()
-    setLoading(false)
-    notify('Task created successfully', 'task-create-form', 'success')
-  }
+    ]);
+    reset();
+    setLoading(false);
+    notify('Task created successfully', 'task-create-form', 'success');
+  };
   return (
     <Box
       onSubmit={handleSubmit(onSubmit)}
@@ -79,7 +79,7 @@ const TaskCreate = ({ tasks, setTasks }: TaskCreateProps) => {
         </Grid>
       </Grid>
     </Box>
-  )
-}
+  );
+};
 
-export default TaskCreate
+export default TaskCreate;

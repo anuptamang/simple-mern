@@ -7,8 +7,8 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-} from 'recharts'
-const data = [{ name: 'Page A', uv: 400, pv: 2400, amt: 2400 }]
+} from 'recharts';
+const data = [{ name: 'Page A', uv: 400, pv: 2400, amt: 2400 }];
 
 export const BarCharts = () => {
   return (
@@ -32,5 +32,5 @@ export const BarCharts = () => {
         <Bar dataKey="uv" fill="#8884d8" barSize={30} />
       </BarChart>
     </ResponsiveContainer>
-  )
-}
+  );
+};

@@ -1,7 +1,7 @@
 interface NavProps {
-  key: number
-  text: string
-  to: string
+  key: number;
+  text: string;
+  to: string;
 }
 
 export const nav: NavProps[] = [
@@ -15,4 +15,4 @@ export const nav: NavProps[] = [
     text: 'Contact',
     to: '/contact',
   },
-]
+];

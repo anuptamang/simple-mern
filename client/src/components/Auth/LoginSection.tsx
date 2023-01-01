@@ -1,17 +1,17 @@
-import { Container, Grid, Typography, Box } from '@mui/material'
-import { BtnLoading } from '../UI/BtnLoading'
-import Banner from '../UI/Banner'
-import { Controller } from 'react-hook-form'
-import { InputForm } from '../UI/InputForm'
+import { Container, Grid, Typography, Box } from '@mui/material';
+import { BtnLoading } from '../UI/BtnLoading';
+import Banner from '../UI/Banner';
+import { Controller } from 'react-hook-form';
+import { InputForm } from '../UI/InputForm';
 
 type Iprops = {
-  handleSubmit: (s: any) => any
-  loading: boolean
-  bannerUrl?: string
-  control: any
-  onSubmit: any
-  errors: any
-}
+  handleSubmit: (s: any) => any;
+  loading: boolean;
+  bannerUrl?: string;
+  control: any;
+  onSubmit: any;
+  errors: any;
+};
 
 const LoginSection = ({
   handleSubmit,
@@ -102,7 +102,7 @@ const LoginSection = ({
         </Container>
       </Banner>
     </>
-  )
-}
+  );
+};
 
-export default LoginSection
+export default LoginSection;

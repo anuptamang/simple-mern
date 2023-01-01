@@ -1,18 +1,18 @@
-import { ReactElement, Suspense, lazy } from 'react'
-import { Outlet } from 'react-router'
-import { ToastContainer } from 'react-toastify'
-import Footer from '../../components/Footer'
-import Header from '../../components/Header'
-import { Wrapper } from '../../components/UI/Wrapper'
+import { ReactElement, Suspense, lazy } from 'react';
+import { Outlet } from 'react-router';
+import { ToastContainer } from 'react-toastify';
+import Footer from '../../components/Footer';
+import Header from '../../components/Header';
+import { Wrapper } from '../../components/UI/Wrapper';
 // import Main from '../../components/UI/Wrapper/Main'
-import Loading from '../../components/UI/Loading'
-import PageHolder from '../../components/UI/Wrapper/PageHolder'
+import Loading from '../../components/UI/Loading';
+import PageHolder from '../../components/UI/Wrapper/PageHolder';
 
-const Main = lazy(() => import('../../components/UI/Wrapper/Main'))
+const Main = lazy(() => import('../../components/UI/Wrapper/Main'));
 
 type Iprops = {
-  children?: ReactElement
-}
+  children?: ReactElement;
+};
 
 const General = ({ children }: Iprops) => {
   return (
@@ -28,7 +28,7 @@ const General = ({ children }: Iprops) => {
         <ToastContainer />
       </Wrapper>
     </>
-  )
-}
+  );
+};
 
-export default General
+export default General;

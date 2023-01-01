@@ -1,9 +1,9 @@
-import { ReactNode } from 'react'
+import { ReactNode } from 'react';
 
 export type BannerProps = {
-  heading?: string
-  imageUrl?: string
-  hasCaption?: boolean
-  hasChildren?: boolean
-  children?: ReactNode
-}
+  heading?: string;
+  imageUrl?: string;
+  hasCaption?: boolean;
+  hasChildren?: boolean;
+  children?: ReactNode;
+};

@@ -1,9 +1,9 @@
-import PostsBlock from '../../components/Admin/PostsBlock'
+import PostsBlock from '../../components/Admin/PostsBlock';
 
-type Props = object
+type Props = {};
 
 const PostsSection = (props: Props) => {
-  return <PostsBlock />
-}
+  return <PostsBlock />;
+};
 
-export default PostsSection
+export default PostsSection;

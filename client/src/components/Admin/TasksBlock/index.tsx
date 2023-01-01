@@ -1,35 +1,35 @@
-import { Grid, Typography } from '@mui/material'
-import { useState } from 'react'
-import { TaskProps } from '../../../types/task'
-import TaskCreate from './TaskCreate'
-import TaskDelete from './TaskDelete'
-import TaskEdit from './TaskEdit'
-import TaskList from './TaskList'
+import { Grid, Typography } from '@mui/material';
+import { useState } from 'react';
+import { TaskProps } from '../../../types/task';
+import TaskCreate from './TaskCreate';
+import TaskDelete from './TaskDelete';
+import TaskEdit from './TaskEdit';
+import TaskList from './TaskList';
 
 export default function TasksBlock() {
-  const [tasks, setTasks] = useState<TaskProps[]>([])
-  const [editItem, setEditItem] = useState<TaskProps>()
-  const [deleteId, setDeleteId] = useState<string | undefined>('')
+  const [tasks, setTasks] = useState<TaskProps[]>([]);
+  const [editItem, setEditItem] = useState<TaskProps>();
+  const [deleteId, setDeleteId] = useState<string | undefined>('');
 
-  const [openEdit, setOpenEdit] = useState(false)
-  const handleOpenEdit = () => setOpenEdit(true)
-  const handleCloseEdit = () => setOpenEdit(false)
+  const [openEdit, setOpenEdit] = useState(false);
+  const handleOpenEdit = () => setOpenEdit(true);
+  const handleCloseEdit = () => setOpenEdit(false);
 
-  const [openDelete, setOpenDelete] = useState(false)
-  const handleOpenDelete = () => setOpenDelete(true)
-  const handleCloseDelete = () => setOpenDelete(false)
+  const [openDelete, setOpenDelete] = useState(false);
+  const handleOpenDelete = () => setOpenDelete(true);
+  const handleCloseDelete = () => setOpenDelete(false);
 
   const handleEdit = (id: string | undefined) => {
-    handleOpenEdit()
+    handleOpenEdit();
     if (tasks.length > 0) {
-      const toEdit = tasks.find((task: TaskProps) => task.id === id)
-      setEditItem(toEdit)
+      const toEdit = tasks.find((task: TaskProps) => task.id === id);
+      setEditItem(toEdit);
     }
-  }
+  };
   const handleDelete = (id: string | undefined) => {
-    handleOpenDelete()
-    setDeleteId(id)
-  }
+    handleOpenDelete();
+    setDeleteId(id);
+  };
 
   return (
     <>
@@ -64,5 +64,5 @@ export default function TasksBlock() {
       )}
       <TaskCreate tasks={tasks} setTasks={setTasks} />
     </>
-  )
+  );
 }

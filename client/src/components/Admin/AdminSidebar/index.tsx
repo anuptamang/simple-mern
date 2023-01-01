@@ -1,27 +1,27 @@
-import MenuIcon from '@mui/icons-material/Menu'
-import { Box, Drawer, IconButton } from '@mui/material'
-import { useState } from 'react'
-import Sidebar from '../../UI/Sidebar'
-import Nav from './Nav'
+import MenuIcon from '@mui/icons-material/Menu';
+import { Box, Drawer, IconButton } from '@mui/material';
+import { useState } from 'react';
+import Sidebar from '../../UI/Sidebar';
+import Nav from './Nav';
 
 interface Props {
-  window?: () => Window
+  window?: () => Window;
 }
 
-const drawerWidth = 240
+const drawerWidth = 240;
 
 const AdminSidebar = (props: Props) => {
-  const { window } = props
+  const { window } = props;
   const container =
-    window !== undefined ? () => window().document.body : undefined
+    window !== undefined ? () => window().document.body : undefined;
 
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState)
-  }
+    setMobileOpen((prevState) => !prevState);
+  };
 
-  const drawer = <Nav onClick={handleDrawerToggle} />
+  const drawer = <Nav onClick={handleDrawerToggle} />;
 
   return (
     <Sidebar>
@@ -58,7 +58,7 @@ const AdminSidebar = (props: Props) => {
         </Drawer>
       </Box>
     </Sidebar>
-  )
-}
+  );
+};
 
-export default AdminSidebar
+export default AdminSidebar;

@@ -1,10 +1,10 @@
-import { Box, Grid, MenuItem, Select, Typography } from '@mui/material'
-import { LocalizationProvider } from '@mui/x-date-pickers'
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { Controller } from 'react-hook-form'
-import { BtnLoading } from '../BtnLoading'
-import { InputForm } from '../InputForm'
+import { Box, Grid, MenuItem, Select, Typography } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { Controller } from 'react-hook-form';
+import { BtnLoading } from '../BtnLoading';
+import { InputForm } from '../InputForm';
 
 const InputStyles = {
   width: '100%',
@@ -22,7 +22,7 @@ const InputStyles = {
     top: '30px',
     zIndex: 10,
   },
-}
+};
 
 const CreateForm = ({
   control,
@@ -156,7 +156,7 @@ const CreateForm = ({
         </Box>
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
-export default CreateForm
+export default CreateForm;

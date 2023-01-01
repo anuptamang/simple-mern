@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 
 export const S = {
   ImageHolder: styled.div`
@@ -29,4 +29,4 @@ export const S = {
     object-fit: cover;
     object-position: 50% 0;
   `,
-}
+};

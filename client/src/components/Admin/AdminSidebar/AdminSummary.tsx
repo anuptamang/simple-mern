@@ -4,7 +4,7 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-} from '@mui/material'
+} from '@mui/material';
 
 function AdminSummary() {
   return (
@@ -23,7 +23,7 @@ function AdminSummary() {
         />
       </ListItem>
     </List>
-  )
+  );
 }
 
-export default AdminSummary
+export default AdminSummary;

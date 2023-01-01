@@ -1,6 +1,6 @@
-import SocialBlock from '../../components/SocialBlock'
-import ContactBanner from '../../features/ContactBanner'
-import ContactForm from '../../features/ContactForm'
+import SocialBlock from '../../components/SocialBlock';
+import ContactBanner from '../../features/ContactBanner';
+import ContactForm from '../../features/ContactForm';
 
 const Contact = () => {
   return (
@@ -9,7 +9,7 @@ const Contact = () => {
       <ContactForm />
       <SocialBlock />
     </>
-  )
-}
+  );
+};
 
-export default Contact
+export default Contact;

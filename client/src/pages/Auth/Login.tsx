@@ -1,11 +1,11 @@
-import React from 'react'
-import { Navigate, useLocation } from 'react-router-dom'
-import AuthLogin from '../../features/Auth/AuthLogin'
-import { useAuth } from '../../hooks/useAuth'
+import React from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import AuthLogin from '../../features/Auth/AuthLogin';
+import { useAuth } from '../../hooks/useAuth';
 
 const Login = () => {
-  let auth = useAuth()
-  let location = useLocation()
+  let auth = useAuth();
+  let location = useLocation();
 
   if (auth?.user) {
     // Redirect them to the /login page, but save the current location they were
@@ -14,13 +14,13 @@ const Login = () => {
     // than dropping them off on the home page.
     return (
       <Navigate to={'/user/dashboard'} state={{ from: location }} replace />
-    )
+    );
   }
   return (
     <>
       <AuthLogin />
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

@@ -1,23 +1,23 @@
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { delay } from '../../../../utils/delay'
-import { notify } from '../../../../utils/notification'
-import { postCreateFormSchema } from '../../../../utils/validationSchema'
-import PostForm from '../../../UI/CreateForm'
-import { PostProps } from '../../../../types/post'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { delay } from '../../../../utils/delay';
+import { notify } from '../../../../utils/notification';
+import { postCreateFormSchema } from '../../../../utils/validationSchema';
+import PostForm from '../../../UI/CreateForm';
+import { PostProps } from '../../../../types/post';
 
 type IFormInput = {
-  id?: string | number
-  title: string
-  author: string
-  status: { [x: string]: string }[]
-  date?: string | number
-  body: string
-}
+  id?: string | number;
+  title: string;
+  author: string;
+  status: { [x: string]: string }[];
+  date?: string | number;
+  body: string;
+};
 
 const PostEditForm = ({ setRows, rows, handleClose, editPost }: any) => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const {
     control,
     formState: { errors },
@@ -33,18 +33,18 @@ const PostEditForm = ({ setRows, rows, handleClose, editPost }: any) => {
       body: editPost.body,
     },
     resolver: yupResolver(postCreateFormSchema),
-  })
+  });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    setLoading(true)
-    await delay(3000)
-    handleClose()
-    reset()
+    setLoading(true);
+    await delay(3000);
+    handleClose();
+    reset();
 
-    const updatedPosts = [...rows]
+    const updatedPosts = [...rows];
     const index = updatedPosts.findIndex(
       (post: PostProps) => post.id === editPost.id
-    )
+    );
     updatedPosts[index] = {
       ...updatedPosts[index],
       title: data.title,
@@ -52,12 +52,12 @@ const PostEditForm = ({ setRows, rows, handleClose, editPost }: any) => {
       status: data.status,
       date: data.date,
       body: data.body,
-    }
+    };
 
-    setRows(updatedPosts)
-    setLoading(false)
-    notify('Post updated successfully', 'post-update-form', 'success')
-  }
+    setRows(updatedPosts);
+    setLoading(false);
+    notify('Post updated successfully', 'post-update-form', 'success');
+  };
 
   return (
     <PostForm
@@ -68,7 +68,7 @@ const PostEditForm = ({ setRows, rows, handleClose, editPost }: any) => {
       errors={errors}
       formTitle="Edit a Post"
     />
-  )
-}
+  );
+};
 
-export default PostEditForm
+export default PostEditForm;

@@ -1,8 +1,8 @@
-import React from 'react'
-import PostsSection from '../../features/PostsSection'
+import React from 'react';
+import PostsSection from '../../features/PostsSection';
 
 const Posts = () => {
-  return <PostsSection />
-}
+  return <PostsSection />;
+};
 
-export default Posts
+export default Posts;

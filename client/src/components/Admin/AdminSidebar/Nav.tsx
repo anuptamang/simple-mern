@@ -1,6 +1,6 @@
-import ContentBox from '../../UI/ContentBox'
-import AdminSummary from './AdminSummary'
-import NavList from './NavList'
+import ContentBox from '../../UI/ContentBox';
+import AdminSummary from './AdminSummary';
+import NavList from './NavList';
 
 const Nav = (props: any) => {
   return (
@@ -8,7 +8,7 @@ const Nav = (props: any) => {
       <AdminSummary />
       <NavList />
     </ContentBox>
-  )
-}
+  );
+};
 
-export default Nav
+export default Nav;

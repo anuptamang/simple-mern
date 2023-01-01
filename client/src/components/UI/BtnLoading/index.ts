@@ -1,5 +1,5 @@
-import { LoadingButton, LoadingButtonProps } from '@mui/lab'
-import { styled } from '@mui/material'
+import { LoadingButton, LoadingButtonProps } from '@mui/lab';
+import { styled } from '@mui/material';
 
 export const BtnLoading = styled(LoadingButton)<LoadingButtonProps>(
   ({ theme }) => ({
@@ -19,4 +19,4 @@ export const BtnLoading = styled(LoadingButton)<LoadingButtonProps>(
       color: '#333',
     },
   })
-)
+);

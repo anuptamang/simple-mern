@@ -1,23 +1,23 @@
-import { Button, Stack, Typography } from '@mui/material'
-import { red } from '@mui/material/colors'
-import { useState } from 'react'
-import { delay } from '../../../../utils/delay'
-import { notify } from '../../../../utils/notification'
-import { BtnLoading } from '../../../UI/BtnLoading'
+import { Button, Stack, Typography } from '@mui/material';
+import { red } from '@mui/material/colors';
+import { useState } from 'react';
+import { delay } from '../../../../utils/delay';
+import { notify } from '../../../../utils/notification';
+import { BtnLoading } from '../../../UI/BtnLoading';
 
 const TaskDeleteForm = ({ tasks, setTasks, handleClose, deleteId }: any) => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
-    setLoading(true)
-    await delay(3000)
-    handleClose()
-    const newData = tasks.filter((task: any) => task.id !== deleteId)
-    setTasks(newData)
+    setLoading(true);
+    await delay(3000);
+    handleClose();
+    const newData = tasks.filter((task: any) => task.id !== deleteId);
+    setTasks(newData);
 
-    setLoading(false)
-    notify('Task Deleted successfully', 'task-delete-form', 'success')
-  }
+    setLoading(false);
+    notify('Task Deleted successfully', 'task-delete-form', 'success');
+  };
 
   return (
     <>
@@ -49,7 +49,7 @@ const TaskDeleteForm = ({ tasks, setTasks, handleClose, deleteId }: any) => {
         </BtnLoading>
       </Stack>
     </>
-  )
-}
+  );
+};
 
-export default TaskDeleteForm
+export default TaskDeleteForm;

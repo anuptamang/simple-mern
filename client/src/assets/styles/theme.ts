@@ -1,7 +1,7 @@
-import { createTheme } from '@mui/material'
-import { green, grey, orange, red } from '@mui/material/colors'
+import { createTheme } from '@mui/material';
+import { green, grey, orange, red } from '@mui/material/colors';
 
-let theme = createTheme()
+let theme = createTheme();
 
 // A custom theme for this app
 theme = createTheme(theme, {
@@ -150,6 +150,6 @@ theme = createTheme(theme, {
       },
     },
   },
-})
+});
 
-export { theme }
+export { theme };

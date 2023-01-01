@@ -1,7 +1,7 @@
-import ContactFormSection from '../../components/ContactFormSection'
+import ContactFormSection from '../../components/ContactFormSection';
 
 const ContactForm = () => {
-  return <ContactFormSection />
-}
+  return <ContactFormSection />;
+};
 
-export default ContactForm
+export default ContactForm;

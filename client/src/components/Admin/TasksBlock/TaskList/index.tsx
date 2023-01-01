@@ -1,16 +1,16 @@
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import HighlightOffOutlinedIcon from '@mui/icons-material/HighlightOffOutlined'
-import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined'
-import StarOutlineIcon from '@mui/icons-material/StarOutline'
-import { Box, List, ListItem, Typography } from '@mui/material'
-import { TaskProps } from '../../../../types/task'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import HighlightOffOutlinedIcon from '@mui/icons-material/HighlightOffOutlined';
+import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import { Box, List, ListItem, Typography } from '@mui/material';
+import { TaskProps } from '../../../../types/task';
 
 type TaskListProps = {
-  tasks: TaskProps[]
-  handleEdit: (id: string | undefined) => void
-  handleDelete: (id: string | undefined) => void
-  setTasks: (t: TaskProps[]) => void
-}
+  tasks: TaskProps[];
+  handleEdit: (id: string | undefined) => void;
+  handleDelete: (id: string | undefined) => void;
+  setTasks: (t: TaskProps[]) => void;
+};
 
 const TaskList = ({
   tasks,
@@ -19,26 +19,26 @@ const TaskList = ({
   setTasks,
 }: TaskListProps) => {
   const handlePin = (id: string | undefined) => {
-    const allTasks = [...tasks]
+    const allTasks = [...tasks];
 
-    const index = allTasks.findIndex((task: TaskProps) => task.id === id)
+    const index = allTasks.findIndex((task: TaskProps) => task.id === id);
     allTasks[index] = {
       ...allTasks[index],
       pinned: allTasks[index].pinned ? false : true,
-    }
+    };
 
-    setTasks(allTasks)
-  }
+    setTasks(allTasks);
+  };
   const handleComplete = (id: string | undefined) => {
-    const allTasks = [...tasks]
+    const allTasks = [...tasks];
 
-    const index = allTasks.findIndex((task: TaskProps) => task.id === id)
+    const index = allTasks.findIndex((task: TaskProps) => task.id === id);
     allTasks[index] = {
       ...allTasks[index],
       completed: !allTasks[index].completed,
-    }
-    setTasks(allTasks)
-  }
+    };
+    setTasks(allTasks);
+  };
   return (
     <>
       <List sx={{ marginBottom: '100px' }}>
@@ -98,7 +98,7 @@ const TaskList = ({
         ))}
       </List>
     </>
-  )
-}
+  );
+};
 
-export default TaskList
+export default TaskList;

@@ -1,12 +1,12 @@
-import { Box, Grid } from '@mui/material'
-import ContentBox from '../../UI/ContentBox'
+import { Box, Grid } from '@mui/material';
+import ContentBox from '../../UI/ContentBox';
 import {
   LineCharts,
   BarCharts,
   RadarCharts,
   ComposedCharts,
   PieCharts,
-} from './Stats'
+} from './Stats';
 
 const DashboardBlock = () => {
   return (
@@ -39,7 +39,7 @@ const DashboardBlock = () => {
         </Grid>
       </Grid>
     </ContentBox>
-  )
-}
+  );
+};
 
-export default DashboardBlock
+export default DashboardBlock;

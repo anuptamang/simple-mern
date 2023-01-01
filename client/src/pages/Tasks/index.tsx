@@ -1,8 +1,8 @@
-import React from 'react'
-import TasksSection from '../../features/TasksSection'
+import React from 'react';
+import TasksSection from '../../features/TasksSection';
 
 const Tasks = () => {
-  return <TasksSection />
-}
+  return <TasksSection />;
+};
 
-export default Tasks
+export default Tasks;

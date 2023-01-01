@@ -1,8 +1,8 @@
-import { ChildrenProps } from '../../../../types/general'
-import { S } from './styles'
+import { ChildrenProps } from '../../../../types/general';
+import { S } from './styles';
 
 const PageHolder = ({ children }: ChildrenProps) => {
-  return <S.PageHolder>{children}</S.PageHolder>
-}
+  return <S.PageHolder>{children}</S.PageHolder>;
+};
 
-export default PageHolder
+export default PageHolder;

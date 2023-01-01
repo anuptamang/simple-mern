@@ -1,5 +1,5 @@
-import { Container, Grid } from '@mui/material'
-import React from 'react'
+import { Container, Grid } from '@mui/material';
+import React from 'react';
 
 const Footer = () => {
   return (
@@ -21,7 +21,7 @@ const Footer = () => {
         </Grid>
       </Container>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

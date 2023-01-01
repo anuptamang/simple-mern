@@ -1,10 +1,10 @@
-import React from 'react'
-import DashboardBlock from '../../components/Admin/DashboardBlock'
+import React from 'react';
+import DashboardBlock from '../../components/Admin/DashboardBlock';
 
-type Props = {}
+type Props = {};
 
 const DashboardSection = (props: Props) => {
-  return <DashboardBlock />
-}
+  return <DashboardBlock />;
+};
 
-export default DashboardSection
+export default DashboardSection;

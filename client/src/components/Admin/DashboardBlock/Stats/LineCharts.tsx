@@ -7,7 +7,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-} from 'recharts'
+} from 'recharts';
 
 const data = [
   {
@@ -52,7 +52,7 @@ const data = [
     pv: 4300,
     amt: 2100,
   },
-]
+];
 
 export const LineCharts = () => {
   return (
@@ -82,5 +82,5 @@ export const LineCharts = () => {
         <Line yAxisId="right" type="monotone" dataKey="uv" stroke="#82ca9d" />
       </LineChart>
     </ResponsiveContainer>
-  )
-}
+  );
+};

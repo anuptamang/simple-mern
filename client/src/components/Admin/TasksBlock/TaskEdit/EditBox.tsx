@@ -1,7 +1,7 @@
-import { Box, Grid, Typography } from '@mui/material'
-import { Controller } from 'react-hook-form'
-import { BtnLoading } from '../../../UI/BtnLoading'
-import { InputForm } from '../../../UI/InputForm'
+import { Box, Grid, Typography } from '@mui/material';
+import { Controller } from 'react-hook-form';
+import { BtnLoading } from '../../../UI/BtnLoading';
+import { InputForm } from '../../../UI/InputForm';
 
 const InputStyles = {
   width: '100%',
@@ -19,7 +19,7 @@ const InputStyles = {
     top: '30px',
     zIndex: 10,
   },
-}
+};
 
 const EditBox = ({
   control,
@@ -85,7 +85,7 @@ const EditBox = ({
         </Box>
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
-export default EditBox
+export default EditBox;

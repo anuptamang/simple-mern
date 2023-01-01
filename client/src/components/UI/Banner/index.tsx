@@ -1,7 +1,7 @@
-import { Container, Typography } from '@mui/material'
-import CoverImage from '../CoverImage'
-import { BannerBox } from './styes'
-import { BannerProps } from '../../../types/banner'
+import { Container, Typography } from '@mui/material';
+import CoverImage from '../CoverImage';
+import { BannerBox } from './styes';
+import { BannerProps } from '../../../types/banner';
 
 const Banner = ({
   heading,
@@ -22,7 +22,7 @@ const Banner = ({
         </Container>
       )}
     </BannerBox>
-  )
-}
+  );
+};
 
-export default Banner
+export default Banner;

@@ -1,7 +1,7 @@
-import { Suspense, lazy } from 'react'
-import ScrollToTop from '../UI/ScrollToTop'
+import { Suspense, lazy } from 'react';
+import ScrollToTop from '../UI/ScrollToTop';
 
-const AppRouter = lazy(() => import('../../routes/AppRouter'))
+const AppRouter = lazy(() => import('../../routes/AppRouter'));
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <AppRouter />
       </Suspense>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,4 +1,4 @@
-import { Box, styled } from '@mui/material'
+import { Box, styled } from '@mui/material';
 
 export const BannerBox = styled(Box)(({ theme }) => ({
   position: 'relative',
@@ -12,4 +12,4 @@ export const BannerBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
     height: '600px',
   },
-}))
+}));

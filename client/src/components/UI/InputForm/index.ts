@@ -1,4 +1,4 @@
-import { TextField, TextFieldProps, styled } from '@mui/material'
+import { TextField, TextFieldProps, styled } from '@mui/material';
 
 export const InputForm = styled(TextField)<TextFieldProps>(({ theme }) => ({
   background: 'none',
@@ -46,4 +46,4 @@ export const InputForm = styled(TextField)<TextFieldProps>(({ theme }) => ({
   '& .MuiOutlinedInput-notchedOutline': {
     border: 0,
   },
-}))
+}));

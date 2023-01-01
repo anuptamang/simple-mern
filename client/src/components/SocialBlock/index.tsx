@@ -1,9 +1,9 @@
-import React from 'react'
-import TwitterIcon from '@mui/icons-material/Twitter'
-import { Container, Stack, Typography } from '@mui/material'
-import { IconHolder } from './styles'
+import React from 'react';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import { Container, Stack, Typography } from '@mui/material';
+import { IconHolder } from './styles';
 
-type Props = {}
+type Props = {};
 
 const SocialBlock = (props: Props) => {
   return (
@@ -25,7 +25,7 @@ const SocialBlock = (props: Props) => {
         </IconHolder>
       </Stack>
     </Container>
-  )
-}
+  );
+};
 
-export default SocialBlock
+export default SocialBlock;
