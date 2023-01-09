@@ -36,7 +36,6 @@ const ContactFormSection = () => {
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     setLoading(true);
-    console.log(data);
     await delay(3000);
     reset();
     setLoading(false);

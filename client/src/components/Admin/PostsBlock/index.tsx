@@ -1,15 +1,37 @@
 import { Box, Grid, Typography } from '@mui/material';
 import { GridActionsCellItem } from '@mui/x-data-grid';
-import { useState } from 'react';
+import { useAuth } from 'hooks/useAuth';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { getAllPosts } from 'redux/post/postAction';
+import { postSelector } from 'redux/post/postSlice';
+import { PostProps } from '../../../types/post';
 import { PostsIcon } from '../../UI/Icons';
 import PostCreate from './PostCreate';
 import PostDelete from './PostDelete';
 import PostEdit from './PostEdit';
 import PostList from './PostList';
-import { PostProps } from '../../../types/post';
+import dayjs from 'dayjs';
 
 export default function PostsBlock() {
-  const [rows, setRows] = useState<PostProps[]>([]);
+  const auth = useAuth();
+  const dispatch = useAppDispatch() as any;
+  const post = useAppSelector(postSelector) as any;
+
+  const postsByUserID = post?.posts?.data?.filter(
+    (item: any) => item.userID === auth.result?._id
+  );
+
+  const userPosts = postsByUserID?.map((post: any) => ({
+    id: post._id,
+    createdAt: dayjs(post.createdAt).format('MMMM D, YYYY'),
+    author: post.userID,
+    body: post.body,
+  }));
+
+  const [rows, setRows] = useState<PostProps[]>(
+    userPosts?.length > 0 ? userPosts : []
+  );
   const [editPost, setEditPost] = useState<PostProps>();
   const [deleteId, setDeleteId] = useState<string>('');
 
@@ -38,9 +60,9 @@ export default function PostsBlock() {
   };
 
   const columns = [
-    { field: 'title', headerName: 'Post', width: 300, sortable: false },
-    { field: 'status', headerName: 'Status', width: 150, sortable: false },
-    { field: 'date', headerName: 'Date', width: 300, sortable: false },
+    { field: 'body', headerName: 'Post', width: 300, sortable: false },
+    // { field: 'status', headerName: 'Status', width: 150, sortable: false },
+    { field: 'createdAt', headerName: 'Date', width: 300, sortable: false },
     {
       field: 'author',
       headerName: 'Author',
@@ -49,6 +71,7 @@ export default function PostsBlock() {
     },
     {
       field: 'actions',
+      headerName: 'Action',
       type: 'actions',
       width: 70,
       getActions: (params: any) => [
@@ -65,6 +88,10 @@ export default function PostsBlock() {
       ],
     },
   ];
+
+  useEffect(() => {
+    dispatch(getAllPosts());
+  }, [dispatch]);
 
   return (
     <>

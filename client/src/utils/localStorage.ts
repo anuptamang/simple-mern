@@ -10,7 +10,7 @@ export function loadState(KEY: string) {
 
 export async function saveState(state: any, KEY: string) {
   try {
-    const serializedState = JSON.stringify(state.auth.user.token);
+    const serializedState = JSON.stringify(state);
     localStorage.setItem(KEY, serializedState);
   } catch (e) {
     //

@@ -1,5 +1,5 @@
 import { Container, Grid } from '@mui/material';
-import React from 'react';
+import NavLink from 'components/UI/NavLink';
 
 const Footer = () => {
   return (
@@ -13,10 +13,12 @@ const Footer = () => {
             blanditiis saepe debitis.
           </Grid>
           <Grid item xs={12} lg={5}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam
-            ducimus accusamus, expedita repellat harum enim est ipsam, porro
-            corporis doloremque tenetur esse? Ex ipsa itaque libero obcaecati
-            perspiciatis ratione sed!
+            <NavLink
+              sx={{ color: '#fff', '&:hover': { textDecoration: 'underline' } }}
+              href={'/privacy-policy'}
+            >
+              Privacy Policy
+            </NavLink>
           </Grid>
         </Grid>
       </Container>

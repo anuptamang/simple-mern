@@ -29,23 +29,23 @@ type DispatchLogoutProps = {
 
 export const login =
   (payload: LoginPayloadProps, reset: any) =>
-  async (dispatch: (arg0: DispatchLoginProps) => any) => {
-    dispatch(userLogin());
+    async (dispatch: (arg0: DispatchLoginProps) => any) => {
+      dispatch(userLogin());
 
-    try {
-      const response = await axios.post(`${API_URL}/user/login`, payload);
+      try {
+        const response = await axios.post(`${API_URL}/user/login`, payload);
 
-      console.log(response);
+        // console.log(response);
 
-      await delay(3000);
-      dispatch(userLoginSuccess(response.data));
-      notify('Login Successfull', 'login-success', 'success');
-      reset();
-    } catch (err: any) {
-      dispatch(userLoginError(err));
-      notify(err.response.data.message, 'login-failed', 'error');
-    }
-  };
+        await delay(3000);
+        dispatch(userLoginSuccess(response.data));
+        notify('Login Successfull', 'login-success', 'success');
+        reset();
+      } catch (err: any) {
+        dispatch(userLoginError(err));
+        notify(err.response.data.message, 'login-failed', 'error');
+      }
+    };
 
 export const logout =
   (navigate: any) => async (dispatch: (arg0: DispatchLogoutProps) => any) => {

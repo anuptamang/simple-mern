@@ -1,7 +1,4 @@
-import { Box, Grid, MenuItem, Select, Typography } from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { Box, Grid, Typography } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import { BtnLoading } from '../BtnLoading';
 import { InputForm } from '../InputForm';
@@ -57,72 +54,6 @@ const CreateForm = ({
             autoComplete="off"
           >
             <Grid container direction={{ xs: 'column', md: 'row' }} spacing={4}>
-              <Grid item xs={12} md={6}>
-                <Controller
-                  rules={{ required: true }}
-                  name="title"
-                  control={control}
-                  render={({ field }) => (
-                    <InputForm
-                      sx={InputStyles}
-                      fullWidth
-                      label="Title"
-                      {...field}
-                    />
-                  )}
-                />
-                <p>{errors.title?.message}</p>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Controller
-                  rules={{ required: true }}
-                  name="author"
-                  control={control}
-                  render={({ field }) => (
-                    <InputForm
-                      sx={InputStyles}
-                      fullWidth
-                      label="Author"
-                      {...field}
-                    />
-                  )}
-                />
-                <p>{errors.author?.message}</p>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Controller
-                  rules={{ required: true }}
-                  name="status"
-                  control={control}
-                  render={({ field }: any) => (
-                    <Select {...field} label="Status" sx={InputStyles}>
-                      <MenuItem value={'Status'}>Status</MenuItem>
-                      <MenuItem value={'publish'}>Publish</MenuItem>
-                      <MenuItem value={'future'}>Future</MenuItem>
-                      <MenuItem value={'draft'}>Draft</MenuItem>
-                    </Select>
-                  )}
-                />
-                <p>{errors.status?.message}</p>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Controller
-                  name="date"
-                  control={control}
-                  render={({ field: { onChange, value } }) => (
-                    <LocalizationProvider dateAdapter={AdapterMoment}>
-                      <DatePicker
-                        label="Date"
-                        value={value}
-                        onChange={onChange}
-                        renderInput={(params: any) => (
-                          <InputForm sx={InputStyles} fullWidth {...params} />
-                        )}
-                      />
-                    </LocalizationProvider>
-                  )}
-                />
-              </Grid>
               <Grid item xs={12}>
                 <Controller
                   rules={{ required: true }}

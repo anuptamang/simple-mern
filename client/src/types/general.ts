@@ -15,7 +15,7 @@ export interface ApiResponseType<T> {
   data: T;
 }
 
-export interface ApiReturn<T> extends Promise<ApiResponseType<Nullable<T>>> {}
+export interface ApiReturn<T> extends Promise<ApiResponseType<Nullable<T>>> { }
 
 export interface ErrorObject {
   error: string;
@@ -29,8 +29,17 @@ export interface AuthProps {
   user: {};
 }
 
+export interface UserInfo {
+  email: string;
+  fullName: string;
+  password?: string;
+  __v?: any;
+  _id?: string;
+}
+
 export interface LoginProps {
-  user: null | {};
+  result: null | UserInfo;
+  token: string | null;
   loading: boolean;
   error: boolean | {};
   success: boolean;
@@ -132,11 +141,11 @@ export interface IDispatch {
 
 export type ActionMap<M extends { [index: string]: any }> = {
   [Key in keyof M]: M[Key] extends undefined
-    ? {
-        type: Key;
-      }
-    : {
-        type: Key;
-        payload: M[Key];
-      };
+  ? {
+    type: Key;
+  }
+  : {
+    type: Key;
+    payload: M[Key];
+  };
 };

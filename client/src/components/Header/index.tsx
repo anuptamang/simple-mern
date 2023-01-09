@@ -1,7 +1,6 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import {
   AppBar,
-  Avatar,
   Box,
   Container,
   Drawer,
@@ -9,12 +8,13 @@ import {
   List,
   ListItem,
   ListItemButton,
+  ListItemText,
   Menu,
   MenuItem,
   Toolbar,
-  Tooltip,
-  Typography,
+  Typography
 } from '@mui/material';
+import { UserIcon } from 'components/UI/Icons';
 import { MouseEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { nav } from '../../data/static/nav';
@@ -34,7 +34,8 @@ const drawerWidth = 240;
 
 const Header = (props: Props) => {
   const { window } = props;
-  const { user } = useAuth();
+  const auth = useAuth();
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const { loading } = useAppSelector(authSelector);
   const dispatch = useAppDispatch();
@@ -127,17 +128,45 @@ const Header = (props: Props) => {
                 </NavLink>
               ))}
             </Box>
-            {user ? (
+            {auth?.token ? (
               <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="Jon Doe" src="/static/images/avatar/2.jpg" />
-                  </IconButton>
-                </Tooltip>
+                <List sx={{ width: '100%' }}>
+                  <ListItem
+                    onClick={handleOpenUserMenu}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    <UserIcon color="#fff" />
+                    <ListItemText
+                      primary={auth?.result?.fullName}
+                      secondary=""
+                      sx={{
+                        paddingLeft: '5px',
+                        color: '#fff',
+                        '& .MuiListItemText-secondary': { color: '#fff' },
+                        '.MuiListItemText-primary': {
+                          whiteSpace: 'nowrap',
+                          textOverflow: 'ellipsis',
+                          display: 'block',
+                          maxWidth: '200px',
+                          overflow: 'hidden',
+                        },
+                      }}
+                    />
+                  </ListItem>
+                </List>
+
                 <Menu
                   sx={{
                     mt: '45px',
                     color: '#fff',
+                    '.MuiMenu-list': { background: '#303033' },
+                    '.MuiMenuItem-root': {
+                      padding: 0,
+                      display: 'block',
+                    },
+                    '.MuiLink-root': {
+                      padding: '5px 15px',
+                    },
                   }}
                   id="menu-appbar"
                   anchorEl={anchorElUser}
@@ -153,16 +182,40 @@ const Header = (props: Props) => {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
+                  <MenuItem>
+                    <List sx={{ width: '100%' }}>
+                      <ListItem>
+                        <UserIcon color="#fff" />
+                        <ListItemText
+                          primary={auth?.result?.fullName}
+                          secondary={auth?.result?.email}
+                          sx={{
+                            paddingLeft: '5px',
+                            color: '#fff',
+                            '& .MuiListItemText-secondary': { color: '#fff' },
+                            '.MuiListItemText-primary': {
+                              whiteSpace: 'nowrap',
+                              textOverflow: 'ellipsis',
+                              display: 'block',
+                              width: '200px',
+                              overflow: 'hidden',
+                            },
+                          }}
+                        />
+                      </ListItem>
+                    </List>
+                  </MenuItem>
                   <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">
+                    <Typography>
                       <NavLink
                         sx={{
-                          color: '#333',
+                          display: 'block',
+                          color: '#fff',
                           '&:hover': {
-                            color: '#fff',
+                            color: '#f1f1f1',
                           },
                           '&.active': {
-                            color: '#057aef',
+                            color: '#f1f1f1',
                           },
                         }}
                         href="/user/dashboard"
@@ -172,49 +225,59 @@ const Header = (props: Props) => {
                     </Typography>
                   </MenuItem>
                   <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">
+                    <Typography>
                       <NavLink
                         sx={{
-                          color: '#333',
+                          display: 'block',
+                          color: '#fff',
                           '&:hover': {
-                            color: '#fff',
+                            color: '#f1f1f1',
                           },
                           '&.active': {
-                            color: '#057aef',
+                            color: '#f1f1f1',
                           },
                         }}
-                        href="/user/posts"
+                        href="/user"
                       >
-                        Posts
+                        Profile
                       </NavLink>
                     </Typography>
                   </MenuItem>
                   <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">
+                    <Typography>
                       <NavLink
                         sx={{
-                          color: '#333',
+                          display: 'block',
+                          color: '#fff',
                           '&:hover': {
-                            color: '#fff',
+                            color: '#f1f1f1',
                           },
                           '&.active': {
-                            color: '#057aef',
+                            color: '#f1f1f1',
                           },
                         }}
-                        href="/user/tasks"
+                        href="/user"
                       >
-                        Tasks
+                        Settings
                       </NavLink>
                     </Typography>
                   </MenuItem>
                   <MenuItem>
-                    <Typography textAlign="center">
+                    <Typography>
                       <BtnLoading
                         loading={loading}
                         sx={{
-                          color: '#333',
+                          display: 'block',
+                          width: '100%',
+                          textAlign: 'left',
+                          color: '#fff',
+                          background: 'none !important',
+                          boxShadow: 'none',
+                          paddingLeft: '15px',
+                          paddingRight: '15px',
+                          textTransform: 'capitalize',
                           '&:hover': {
-                            color: '#fff',
+                            color: '#f1f1f1',
                           },
                         }}
                         onClick={() => dispatch(logout(navigate))}

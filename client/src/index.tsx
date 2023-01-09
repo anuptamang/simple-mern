@@ -15,7 +15,7 @@ const root = createRoot(container);
 
 store.subscribe(
   debounce(() => {
-    saveState(store.getState(), 'authToken');
+    saveState(store.getState(), 'user');
   }, 800)
 );
 

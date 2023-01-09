@@ -49,10 +49,10 @@ export const loginFormSchema = yup.object({
 });
 
 export const postCreateFormSchema = yup.object({
-  title: textValidation,
-  author: textValidation,
-  status: textValidation,
-  date: dateValidation,
+  // title: textValidation,
+  // author: textValidation,
+  // status: textValidation,
+  // date: dateValidation,
   body: messageValidation,
 });
 

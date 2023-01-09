@@ -1,23 +1,30 @@
 import { Button, Stack, Typography } from '@mui/material';
 import { red } from '@mui/material/colors';
-import { useState } from 'react';
-import { delay } from '../../../../utils/delay';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { postDelete, resetPostDelete } from 'redux/post/postAction';
+import { postSelector } from 'redux/post/postSlice';
 import { notify } from '../../../../utils/notification';
 import { BtnLoading } from '../../../UI/BtnLoading';
 
 const PostDeleteForm = ({ rows, setRows, handleClose, deleteId }: any) => {
-  const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch();
+  const { loading, deletePostSuccess } = useAppSelector(postSelector) as any;
 
   const handleSubmit = async () => {
-    setLoading(true);
-    await delay(3000);
-    handleClose();
-    const newData = rows.filter((post: any) => post.id !== deleteId);
-    setRows(newData);
-
-    setLoading(false);
-    notify('Post Deleted successfully', 'post-delete-form', 'success');
+    dispatch(postDelete(deleteId));
   };
+
+  useEffect(() => {
+    if (deletePostSuccess) {
+      handleClose();
+      const newData = rows.filter((post: any) => post.id !== deleteId);
+      setRows(newData);
+
+      notify('Post Deleted successfully', 'post-delete-form', 'success');
+      dispatch(resetPostDelete());
+    }
+  }, [dispatch, deletePostSuccess]);
 
   return (
     <>

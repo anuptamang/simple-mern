@@ -2,7 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LoginProps } from '../../types';
 
 const initialState: LoginProps = {
-  user: null,
+  result: {
+    email: '',
+    fullName: '',
+    password: '',
+  },
+  token: null,
   loading: false,
   error: false,
   success: false,
@@ -20,7 +25,8 @@ export const authSlice = createSlice({
       action: PayloadAction<LoginProps>
     ) => {
       state.loading = false;
-      state.user = action.payload;
+      state.result = action.payload.result;
+      state.token = action.payload.token;
       state.error = false;
       state.success = true;
     },
@@ -37,7 +43,8 @@ export const authSlice = createSlice({
     },
     userLogoutSuccess: (state: typeof initialState) => {
       state.loading = false;
-      state.user = null;
+      state.result = null;
+      state.token = null;
       state.success = false;
     },
     userLogoutError: (
