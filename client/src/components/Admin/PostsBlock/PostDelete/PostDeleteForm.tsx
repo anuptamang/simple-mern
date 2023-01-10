@@ -6,13 +6,21 @@ import { postDelete, resetPostDelete } from 'redux/post/postAction';
 import { postSelector } from 'redux/post/postSlice';
 import { notify } from '../../../../utils/notification';
 import { BtnLoading } from '../../../UI/BtnLoading';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from 'hooks/useAuth';
 
 const PostDeleteForm = ({ rows, setRows, handleClose, deleteId }: any) => {
   const dispatch = useAppDispatch();
+  const { token } = useAuth();
   const { loading, deletePostSuccess } = useAppSelector(postSelector) as any;
 
   const handleSubmit = async () => {
-    dispatch(postDelete(deleteId));
+    if (token) {
+      dispatch(postDelete(deleteId, token));
+    } else {
+      <Navigate to={'/login'} />;
+      notify('User Session Expired', 'session-expire-form', 'warning');
+    }
   };
 
   useEffect(() => {

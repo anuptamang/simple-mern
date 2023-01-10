@@ -16,7 +16,7 @@ const root = createRoot(container);
 store.subscribe(
   debounce(() => {
     saveState(store.getState(), 'user');
-  }, 800)
+  }, 500)
 );
 
 root.render(

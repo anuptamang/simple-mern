@@ -34,6 +34,7 @@ export const messageValidation = yup
 export const dateValidation = yup.string().required('Required!');
 
 export const passwordValidation = yup.string().required('Required!');
+export const confirmPasswordValidation = yup.string().required('Required!').oneOf([yup.ref('password'), null], 'Passwords must match');
 
 export const contactFormSchema = yup.object({
   firstName: textValidation,
@@ -46,6 +47,15 @@ export const contactFormSchema = yup.object({
 export const loginFormSchema = yup.object({
   email: emailValidation,
   password: passwordValidation,
+});
+
+export const registerFormSchema = yup.object({
+  firstName: textValidation,
+  lastName: textValidation,
+  email: emailValidation,
+  phone: phoneValidation,
+  password: passwordValidation,
+  confirmPassword: confirmPasswordValidation
 });
 
 export const postCreateFormSchema = yup.object({

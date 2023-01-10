@@ -37,12 +37,13 @@ export interface UserInfo {
   _id?: string;
 }
 
-export interface LoginProps {
+export interface AuthTypeProps {
   result: null | UserInfo;
   token: string | null;
   loading: boolean;
   error: boolean | {};
   success: boolean;
+  addUser: object | null;
 }
 
 export interface Author {

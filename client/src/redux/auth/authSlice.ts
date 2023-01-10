@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { LoginProps } from '../../types';
+import { AuthTypeProps } from '../../types';
 
-const initialState: LoginProps = {
+const initialState: AuthTypeProps = {
   result: {
     email: '',
     fullName: '',
     password: '',
   },
+  addUser: null,
   token: null,
   loading: false,
   error: false,
@@ -22,7 +23,7 @@ export const authSlice = createSlice({
     },
     userLoginSuccess: (
       state: typeof initialState,
-      action: PayloadAction<LoginProps>
+      action: PayloadAction<AuthTypeProps>
     ) => {
       state.loading = false;
       state.result = action.payload.result;
@@ -32,7 +33,7 @@ export const authSlice = createSlice({
     },
     userLoginError: (
       state: typeof initialState,
-      action: PayloadAction<LoginProps>
+      action: PayloadAction<AuthTypeProps>
     ) => {
       state.loading = false;
       state.error = action.payload;
@@ -49,15 +50,35 @@ export const authSlice = createSlice({
     },
     userLogoutError: (
       state: typeof initialState,
-      action: PayloadAction<LoginProps>
+      action: PayloadAction<AuthTypeProps>
     ) => {
       state.error = action.payload;
+    },
+    addUser: (state) => {
+      state.loading = true
+    },
+    addUserSuccess: (state, action) => {
+      state.loading = false
+      state.success = true
+      state.result = action.payload.result;
+      state.token = action.payload.token;
+      state.addUser = action.payload
+    },
+    addUserError: (state, action) => {
+      state.loading = false
+      state.success = false
+      state.error = action.payload
+    },
+    resetAddUser: (state) => {
+      state.addUser = {}
+      state.success = false
+      state.error = false
     },
   },
 });
 
 // Selector function return
-export const authSelector = (state: { auth: LoginProps }) => state.auth;
+export const authSelector = (state: { auth: AuthTypeProps }) => state.auth;
 
 // Action creators are generated for each case reducer function
 export const {
@@ -67,6 +88,10 @@ export const {
   userLogout,
   userLogoutSuccess,
   userLogoutError,
+  addUser,
+  addUserSuccess,
+  addUserError,
+  resetAddUser,
 } = authSlice.actions;
 
 export default authSlice.reducer;

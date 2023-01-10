@@ -1,11 +1,18 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+export type SinglePostProps = {
+  body?: string;
+  createdAt?: string;
+  userID?: string;
+  __v?: number;
+  _id?: string;
+} | any
 
 export type PostProps = {
   posts?: object | null,
   loading: boolean;
   error: any;
   success: boolean | undefined;
-  singlePost: object | null;
+  singlePost: SinglePostProps;
   postsById: object | null;
   createPost: object | null;
   updatePost: object | null;
@@ -24,7 +31,7 @@ const initialState: PostProps = {
   loading: false,
   error: false,
   success: false,
-  singlePost: null,
+  singlePost: {},
   postsById: null,
   createPost: null,
   updatePost: null,
@@ -126,7 +133,7 @@ export const postSlice = createSlice({
       state.error = false
     },
     resetSinglePost: (state: typeof initialState) => {
-      state.singlePost = null
+      state.singlePost = {}
       state.loadingSingle = false
       state.success = false
       state.error = false

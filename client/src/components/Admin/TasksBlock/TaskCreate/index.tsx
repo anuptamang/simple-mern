@@ -38,7 +38,6 @@ const TaskCreate = ({ tasks, setTasks }: TaskCreateProps) => {
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     setLoading(true);
-    console.log(data);
     await delay(3000);
     setTasks((prev: TaskProps[]) => [
       ...prev,

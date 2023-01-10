@@ -1,9 +1,12 @@
 import axios from 'axios';
 import { API_URL } from '../../configs';
-import { LoginProps } from '../../types';
+import { AuthTypeProps } from '../../types';
 import { delay } from '../../utils/delay';
 import { notify } from '../../utils/notification';
 import {
+  addUser,
+  addUserError,
+  addUserSuccess,
   userLogin,
   userLoginError,
   userLoginSuccess,
@@ -17,13 +20,28 @@ interface LoginPayloadProps {
   password: string;
 }
 
+interface RegisterPayloadProps {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 type DispatchLoginProps = {
-  payload: LoginProps | undefined;
+  payload: AuthTypeProps | undefined;
   type: 'auth/userLogin' | 'auth/userLoginSuccess' | 'auth/userLoginError';
 };
 
+
+type DispatchRegisterProps = {
+  payload: AuthTypeProps | undefined;
+  type: 'auth/addUser' | 'auth/addUserSuccess' | 'auth/addUserError';
+};
+
 type DispatchLogoutProps = {
-  payload: LoginProps | undefined;
+  payload: AuthTypeProps | undefined;
   type: 'auth/userLogout' | 'auth/userLogoutSuccess' | 'auth/userLogoutError';
 };
 
@@ -34,10 +52,6 @@ export const login =
 
       try {
         const response = await axios.post(`${API_URL}/user/login`, payload);
-
-        // console.log(response);
-
-        await delay(3000);
         dispatch(userLoginSuccess(response.data));
         notify('Login Successfull', 'login-success', 'success');
         reset();
@@ -47,8 +61,24 @@ export const login =
       }
     };
 
+export const register =
+  (payload: RegisterPayloadProps, reset: any) =>
+    async (dispatch: (arg0: DispatchRegisterProps) => any) => {
+      dispatch(addUser());
+
+      try {
+        const response = await axios.post(`${API_URL}/user/registration`, payload);
+        dispatch(addUserSuccess(response.data));
+        reset();
+        notify('Register Successfull', 'register-success', 'success');
+      } catch (err: any) {
+        dispatch(addUserError(err));
+        notify(err.response.data.message, 'register-failed', 'error');
+      }
+    };
+
 export const logout =
-  (navigate: any) => async (dispatch: (arg0: DispatchLogoutProps) => any) => {
+  () => async (dispatch: (arg0: DispatchLogoutProps) => any) => {
     dispatch(userLogout());
     try {
       await delay(3000);

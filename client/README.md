@@ -1,4 +1,9 @@
-## Live Preview: https://my-app-2-anuptamang.vercel.app
+## Features:
+
+- User Login / Registration
+- User Dashboard
+- User Profile
+- User Post CRUD
 
 ## Tools Used:
 

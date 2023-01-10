@@ -1,9 +1,8 @@
-import { Container, Grid, Typography, Box } from '@mui/material';
-import { BtnLoading } from '../UI/BtnLoading';
-import Banner from '../UI/Banner';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import { Controller } from 'react-hook-form';
+import Banner from '../UI/Banner';
+import { BtnLoading } from '../UI/BtnLoading';
 import { InputForm } from '../UI/InputForm';
-import { Link } from 'react-router-dom';
 
 type Iprops = {
   handleSubmit: (s: any) => any;
@@ -14,7 +13,7 @@ type Iprops = {
   errors: any;
 };
 
-const LoginSection = ({
+const RegisterSection = ({
   handleSubmit,
   onSubmit,
   control,
@@ -45,21 +44,44 @@ const LoginSection = ({
                     },
                   }}
                 >
-                  Login
+                  Register
                 </Typography>
                 <Box
                   onSubmit={handleSubmit(onSubmit)}
                   component="form"
                   noValidate
                   autoComplete="off"
-                  sx={{marginBottom:'20px'}}
+                  sx={{ marginBottom: '20px' }}
                 >
                   <Grid
                     container
                     direction={{ xs: 'column', md: 'row' }}
                     spacing={4}
                   >
-                    <Grid item xs={12}>
+                    <Grid item xs={12} lg={6}>
+                      <Controller
+                        rules={{ required: true }}
+                        name="firstName"
+                        control={control}
+                        render={({ field }) => (
+                          <InputForm fullWidth label="First Name" {...field} />
+                        )}
+                      />
+                      <p>{errors.firstName?.message}</p>
+                    </Grid>
+                    <Grid item xs={12} lg={6}>
+                      <Controller
+                        rules={{ required: true }}
+                        name="lastName"
+                        control={control}
+                        render={({ field }) => (
+                          <InputForm fullWidth label="Last Name" {...field} />
+                        )}
+                      />
+                      <p>{errors.lastName?.message}</p>
+                    </Grid>
+
+                    <Grid item xs={12} lg={6}>
                       <Controller
                         rules={{ required: true }}
                         name="email"
@@ -70,7 +92,18 @@ const LoginSection = ({
                       />
                       <p>{errors.email?.message}</p>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} lg={6}>
+                      <Controller
+                        rules={{ required: true }}
+                        name="phone"
+                        control={control}
+                        render={({ field }) => (
+                          <InputForm fullWidth label="Phone" {...field} />
+                        )}
+                      />
+                      <p>{errors.phone?.message}</p>
+                    </Grid>
+                    <Grid item xs={12} lg={6}>
                       <Controller
                         rules={{ required: true }}
                         name="password"
@@ -86,6 +119,22 @@ const LoginSection = ({
                       />
                       <p>{errors.password?.message}</p>
                     </Grid>
+                    <Grid item xs={12} lg={6}>
+                      <Controller
+                        rules={{ required: true }}
+                        name="confirmPassword"
+                        control={control}
+                        render={({ field }) => (
+                          <InputForm
+                            type="password"
+                            fullWidth
+                            label="Confirm Password"
+                            {...field}
+                          />
+                        )}
+                      />
+                      <p>{errors.confirmPassword?.message}</p>
+                    </Grid>
                     <Grid item xs={12}>
                       <BtnLoading
                         variant="contained"
@@ -98,10 +147,6 @@ const LoginSection = ({
                     </Grid>
                   </Grid>
                 </Box>
-                <Typography>
-                  Don't have an account?{' '}
-                  <Link to="/register">Register Now</Link>
-                </Typography>
               </Box>
             </Grid>
           </Grid>
@@ -111,4 +156,4 @@ const LoginSection = ({
   );
 };
 
-export default LoginSection;
+export default RegisterSection;

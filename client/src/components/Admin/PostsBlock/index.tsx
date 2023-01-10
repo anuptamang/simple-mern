@@ -25,7 +25,7 @@ export default function PostsBlock() {
   const userPosts = postsByUserID?.map((post: any) => ({
     id: post._id,
     createdAt: dayjs(post.createdAt).format('MMMM D, YYYY'),
-    author: post.userID,
+    author: auth?.result?.fullName,
     body: post.body,
   }));
 

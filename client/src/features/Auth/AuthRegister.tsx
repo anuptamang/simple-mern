@@ -1,18 +1,22 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { register } from 'redux/auth/authAction';
 import loginBanner from '../../assets/images/img-login.jpg';
-import LoginSection from '../../components/Auth/LoginSection';
-import { login } from '../../redux/auth/authAction';
+import RegisterSection from '../../components/Auth/RegisterSection';
 import { authSelector } from '../../redux/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { loginFormSchema } from '../../utils/validationSchema';
+import { registerFormSchema } from '../../utils/validationSchema';
 
 type IFormInput = {
+  firstName: string;
+  lastName: string;
   email: string;
+  phone: string;
   password: string;
+  confirmPassword: string;
 };
 
-const AuthLogin = () => {
+const AuthRegister = () => {
   const { loading } = useAppSelector(authSelector);
   const dispatch = useAppDispatch();
 
@@ -23,19 +27,23 @@ const AuthLogin = () => {
     reset,
   } = useForm<IFormInput>({
     defaultValues: {
+      firstName: '',
+      lastName: '',
       email: '',
+      phone: '',
       password: '',
+      confirmPassword: '',
     },
-    resolver: yupResolver(loginFormSchema),
+    resolver: yupResolver(registerFormSchema),
   });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    dispatch(login({ email: data.email, password: data.password }, reset));
+    dispatch(register(data, reset));
   };
 
   return (
     <>
-      <LoginSection
+      <RegisterSection
         bannerUrl={loginBanner}
         control={control}
         errors={errors}
@@ -47,4 +55,4 @@ const AuthLogin = () => {
   );
 };
 
-export default AuthLogin;
+export default AuthRegister;

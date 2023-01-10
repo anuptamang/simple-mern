@@ -1,14 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import dayjs from 'dayjs';
+import { useAuth } from 'hooks/useAuth';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { postSelector } from 'redux/post/postSlice';
 import { notify } from 'utils/notification';
-import {
-  postCreate,
-  resetPostCreate
-} from '../../../../redux/post/postAction';
+import { postCreate, resetPostCreate } from '../../../../redux/post/postAction';
 import { PostProps } from '../../../../types/post';
 import { postCreateFormSchema } from '../../../../utils/validationSchema';
 import PostForm from '../../../UI/CreateForm';
@@ -23,6 +22,7 @@ type IFormInput = {
 };
 
 const PostCreateForm = ({ setRows, handleClose }: any) => {
+  const auth = useAuth();
   const dispatch = useAppDispatch();
   const { loading, createPostSuccess, createPost } = useAppSelector(
     postSelector
@@ -40,7 +40,13 @@ const PostCreateForm = ({ setRows, handleClose }: any) => {
   });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    dispatch(postCreate(data));
+    if (auth?.token) {
+      console.log(auth.token);
+      dispatch(postCreate(data, auth.token));
+    } else {
+      <Navigate to={'/login'} />;
+      notify('User Session Expired', 'session-expire-form', 'warning');
+    }
   };
 
   useEffect(() => {
@@ -48,7 +54,7 @@ const PostCreateForm = ({ setRows, handleClose }: any) => {
       const newPost = {
         id: createPost?._id,
         createdAt: dayjs(createPost?.createdAt).format('MMMM D, YYYY'),
-        author: createPost?.userID,
+        author: auth?.result?.fullName,
         body: createPost?.body,
       };
 

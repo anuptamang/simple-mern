@@ -12,11 +12,10 @@ import {
   Menu,
   MenuItem,
   Toolbar,
-  Typography
+  Typography,
 } from '@mui/material';
 import { UserIcon } from 'components/UI/Icons';
 import { MouseEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { nav } from '../../data/static/nav';
 import { useAuth } from '../../hooks/useAuth';
 import { logout } from '../../redux/auth/authAction';
@@ -39,7 +38,6 @@ const Header = (props: Props) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { loading } = useAppSelector(authSelector);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -280,7 +278,7 @@ const Header = (props: Props) => {
                             color: '#f1f1f1',
                           },
                         }}
-                        onClick={() => dispatch(logout(navigate))}
+                        onClick={() => dispatch(logout())}
                       >
                         Logout
                       </BtnLoading>

@@ -8,6 +8,8 @@ import { PostProps } from '../../../../types/post';
 import { notify } from '../../../../utils/notification';
 import { postCreateFormSchema } from '../../../../utils/validationSchema';
 import PostForm from '../../../UI/CreateForm';
+import { useAuth } from 'hooks/useAuth';
+import { Navigate } from 'react-router-dom';
 
 type IFormInput = {
   id?: string | number;
@@ -20,6 +22,8 @@ type IFormInput = {
 
 const PostEditForm = ({ setRows, rows, handleClose, editPost }: any) => {
   const dispatch = useAppDispatch();
+  const { token } = useAuth();
+
   const { loading, updatePostSuccess, updatePost } = useAppSelector(
     postSelector
   ) as any;
@@ -36,7 +40,12 @@ const PostEditForm = ({ setRows, rows, handleClose, editPost }: any) => {
   });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    dispatch(postUpdate(data, editPost?.id));
+    if (token) {
+      dispatch(postUpdate(data, editPost?.id, token));
+    } else {
+      <Navigate to={'/login'} />;
+      notify('User Session Expired', 'session-expire-form', 'warning');
+    }
   };
 
   useEffect(() => {
