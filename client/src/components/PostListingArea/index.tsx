@@ -1,29 +1,27 @@
-import { Box, Container, Grid, Link, Typography } from '@mui/material';
+import { Container, Grid, Typography } from '@mui/material';
+import PostBlock from 'components/PostBlock';
+import { PostBlockProps } from 'types/post';
 
 const PostListingArea = ({ results }: any) => {
+  console.log(results);
   return (
     <Container sx={{ py: '50px' }}>
       <Typography variant="h4" component="h2" sx={{ marginBottom: '20px' }}>
-        Posts
+        Post Area
       </Typography>
-      <Grid container spacing={4}>
-        {results?.posts?.data?.map((post: any) => (
-          <Grid key={post?._id} item xs={12} sm={6} lg={4}>
-            <Box>
-              <Link
-                href={`/posts/${post?._id}`}
-                sx={{
-                  color: '#fff',
-                  textDecoration: 'none',
-                  '&:hover': { opacity: 0.7 },
-                }}
-              >
-                {post?.body}
-              </Link>
-            </Box>
+      {results?.posts?.data?.length > 0 ? (
+        <>
+          <Grid container spacing={4}>
+            {results?.posts?.data?.map((post: PostBlockProps) => (
+              <Grid key={post?._id} item xs={12} sm={6} lg={4}>
+                <PostBlock data={post} />
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
+        </>
+      ) : (
+        <Typography>There are no posts yet!</Typography>
+      )}
     </Container>
   );
 };

@@ -3,23 +3,24 @@ import { useAuth } from 'hooks/useAuth';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Navigate, useLocation } from 'react-router-dom';
+import { resetUserUpdate, userUpdate } from 'redux/auth/authAction';
+import { authSelector } from 'redux/auth/authSlice';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { resetTaskUpdate, taskUpdate } from 'redux/task/taskAction';
-import { taskSelector } from 'redux/task/taskSlice';
+import { UserInfo } from 'types';
 import { delay } from 'utils/delay';
 import { isTokenValid } from 'utils/isTokenValid';
 import { notify } from '../../../../utils/notification';
-import { tasksSchema } from '../../../../utils/validationSchema';
+import { userInfoSchema } from '../../../../utils/validationSchema';
 import EditBox from './EditBox';
 
 type IFormInput = {
-  task: string;
+  fullName?: string;
 };
 
-const TaskEditForm = ({ setTasks, tasks, handleClose, editItem }: any) => {
+const UserEditForm = ({ setUsersList, users, handleClose, editItem }: any) => {
   const dispatch = useAppDispatch();
-  const { loading, updateTaskSuccess, updateTask } =
-    useAppSelector(taskSelector);
+  const { loading, updateUserSuccess, updateUser } =
+    useAppSelector(authSelector);
   const auth = useAuth();
   const location = useLocation();
   const {
@@ -29,14 +30,14 @@ const TaskEditForm = ({ setTasks, tasks, handleClose, editItem }: any) => {
     reset,
   } = useForm<IFormInput>({
     defaultValues: {
-      task: editItem.task,
+      fullName: editItem.fullName,
     },
-    resolver: yupResolver(tasksSchema),
+    resolver: yupResolver(userInfoSchema),
   });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     if (auth?.token && isTokenValid(auth.token)) {
-      dispatch(taskUpdate(data, editItem._id, auth.token));
+      dispatch(userUpdate(data, editItem._id, auth.token));
     } else {
       notify('User Session Expired', 'session-expire-form', 'warning');
       await delay(2000);
@@ -45,22 +46,22 @@ const TaskEditForm = ({ setTasks, tasks, handleClose, editItem }: any) => {
   };
 
   useEffect(() => {
-    if (updateTaskSuccess) {
-      const updatedTasks = [...tasks];
-      const index = updatedTasks.findIndex(
-        (task: any) => task._id === editItem._id
+    if (updateUserSuccess) {
+      const updatedUsers = [...users];
+      const index = updatedUsers.findIndex(
+        (user: UserInfo) => user._id === editItem._id
       );
-      updatedTasks[index] = {
-        ...updatedTasks[index],
-        ...updateTask,
+      updatedUsers[index] = {
+        ...updatedUsers[index],
+        ...updateUser,
       };
-      setTasks(updatedTasks);
+      setUsersList(updatedUsers);
       reset();
       handleClose();
-      notify('Task updated successfully', 'task-update-form', 'success');
-      dispatch(resetTaskUpdate());
+      notify('User updated successfully', 'user-update-form', 'success');
+      dispatch(resetUserUpdate());
     }
-  }, [dispatch, updateTaskSuccess]);
+  }, [dispatch, updateUserSuccess]);
 
   return (
     <EditBox
@@ -69,9 +70,9 @@ const TaskEditForm = ({ setTasks, tasks, handleClose, editItem }: any) => {
       handleSubmit={handleSubmit}
       loading={loading}
       errors={errors}
-      formTitle="Edit a Task"
+      formTitle="Edit a User"
     />
   );
 };
 
-export default TaskEditForm;
+export default UserEditForm;

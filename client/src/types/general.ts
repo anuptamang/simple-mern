@@ -30,8 +30,9 @@ export interface AuthProps {
 }
 
 export interface UserInfo {
-  email: string;
-  fullName: string;
+  result?: any
+  email?: string;
+  fullName?: string;
   password?: string;
   __v?: any;
   _id?: string;
@@ -44,6 +45,15 @@ export interface AuthTypeProps {
   error: boolean | {};
   success: boolean;
   addUser: object | null;
+  users: null | any
+  singleUser: null | any
+  updateUser: null | any
+  deleteUser: null | any
+  loadingSingle: boolean
+  loadingUpdate: boolean
+  loadingDelete: boolean
+  updateUserSuccess: boolean
+  deleteUserSuccess: boolean
 }
 
 export interface Author {

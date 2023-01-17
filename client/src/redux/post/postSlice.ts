@@ -21,6 +21,7 @@ export type PostProps = {
   loadingSingle: boolean;
   loadingDelete: boolean;
   loadingUpdate: boolean;
+  likeLoading: boolean;
   createPostSuccess: boolean;
   updatePostSuccess: boolean;
   deletePostSuccess: boolean;
@@ -40,6 +41,7 @@ const initialState: PostProps = {
   loadingSingle: false,
   loadingDelete: false,
   loadingUpdate: false,
+  likeLoading: false,
   createPostSuccess: false,
   updatePostSuccess: false,
   deletePostSuccess: false
@@ -112,6 +114,37 @@ export const postSlice = createSlice({
       state.error = action.payload
     },
 
+    addLike: (state: typeof initialState) => {
+      state.likeLoading = true
+    },
+
+    addLikeSuccess: (state, action: PayloadAction<PostProps>) => {
+      state.likeLoading = false
+      state.updatePostSuccess = true
+      state.updatePost = action.payload
+    },
+    addLikeError: (state, action: PayloadAction<PostProps>) => {
+      state.likeLoading = false
+      state.updatePostSuccess = false
+      state.error = action.payload
+    },
+
+    removeLike: (state: typeof initialState) => {
+      state.likeLoading = true
+    },
+
+    removeLikeSuccess: (state, action: PayloadAction<PostProps>) => {
+      state.likeLoading = false
+      state.updatePostSuccess = true
+      state.updatePost = action.payload
+    },
+    removeLikeError: (state, action: PayloadAction<PostProps>) => {
+      state.likeLoading = false
+      state.updatePostSuccess = false
+      state.error = action.payload
+    },
+
+
     deletePost: (state: typeof initialState) => {
       state.loadingDelete = true
     },
@@ -161,6 +194,12 @@ export const {
   updatePost,
   updatePostSuccess,
   updatePostError,
+  addLike,
+  addLikeSuccess,
+  addLikeError,
+  removeLike,
+  removeLikeSuccess,
+  removeLikeError,
   resetDeletePost,
   resetSinglePost,
   resetCreatePost,

@@ -1,9 +1,14 @@
-export interface PostProps {
-  posts?: any;
-  title?: string;
-  author?: string;
-  date?: any;
-  body: string;
+export interface PostBlockProps {
   id?: string;
-  status?: string;
+  likes?: number;
+  _id?: string;
+  body: string;
+  userID?: any;
+  createdAt?: string;
+  __v?: any;
+}
+
+export interface LikesProps {
+  likes: number | undefined
+  setLikes: (likes: number | undefined) => void
 }

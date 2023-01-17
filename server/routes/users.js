@@ -1,9 +1,22 @@
-import express from 'express'
-import { login, registration } from '../controllers/user.js'
+import express from "express";
+import {
+  login,
+  registration,
+  deleteUser,
+  updateUserProfile,
+  getUser,
+  getUsers,
+} from "../controllers/user.js";
 
-const router = express.Router()
+import Auth from "../middlewares/auth.js";
 
-router.post('/login', login)
-router.post('/registration', registration)
+const router = express.Router();
 
-export default router
+router.post("/login", login);
+router.post("/registration", registration);
+router.get("/list", getUsers);
+router.get("/:id", getUser);
+router.patch("/:id", Auth, updateUserProfile);
+router.delete("/:id", Auth, deleteUser);
+
+export default router;

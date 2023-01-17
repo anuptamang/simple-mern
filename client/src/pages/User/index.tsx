@@ -1,9 +1,12 @@
-import React from 'react'
+import ContentBox from 'components/UI/ContentBox';
+import UsersList from 'features/UsersList';
 
 const User = () => {
   return (
-    <div>User</div>
-  )
-}
+    <ContentBox>
+      <UsersList isProfile={true} />
+    </ContentBox>
+  );
+};
 
-export default User
+export default User;

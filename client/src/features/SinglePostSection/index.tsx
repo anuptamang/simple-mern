@@ -1,21 +1,64 @@
 import SinglePostContent from 'components/SinglePostContent';
 import Loading from 'components/UI/Loading';
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { getAllusers, getUserById } from 'redux/auth/authAction';
+import { authSelector } from 'redux/auth/authSlice';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { getPostById } from 'redux/post/postAction';
+import { addLikes, getPostById, removeLikes } from 'redux/post/postAction';
 import { postSelector } from 'redux/post/postSlice';
+import { UserInfo } from 'types';
+import { LikesProps } from 'types/post';
 
 const SinglePostSection = () => {
   const { id } = useParams() as any;
   const dispatch = useAppDispatch();
-  const { singlePost, loading } = useAppSelector(postSelector);
+  const { singlePost, loading, likeLoading } = useAppSelector(postSelector);
+  const { users } = useAppSelector(authSelector);
+
+  const author = users?.find(
+    (user: UserInfo) => user._id === singlePost?.userID
+  );
+
+  const [likes, setLikes] = useState<LikesProps>();
+
+  const handleAddLikes = () => {
+    dispatch(addLikes(singlePost?._id));
+  };
+
+  const handleRemoveLikes = () => {
+    dispatch(removeLikes(singlePost?._id));
+  };
+
+  useEffect(() => {
+    if (singlePost) setLikes(singlePost.likes);
+  }, [singlePost]);
 
   useEffect(() => {
     dispatch(getPostById(id));
   }, [id, dispatch]);
 
-  return <>{loading ? <Loading /> : <SinglePostContent data={singlePost} />}</>;
+  useEffect(() => {
+    dispatch(getAllusers());
+  }, [dispatch]);
+
+  return (
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <SinglePostContent
+          post={singlePost}
+          author={author}
+          likes={likes}
+          setLikes={setLikes}
+          handleAddLikes={handleAddLikes}
+          handleRemoveLikes={handleRemoveLikes}
+          likeLoading={likeLoading}
+        />
+      )}
+    </>
+  );
 };
 
 export default SinglePostSection;

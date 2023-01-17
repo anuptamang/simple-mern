@@ -1,23 +1,46 @@
 import { Button, Stack, Typography } from '@mui/material';
 import { red } from '@mui/material/colors';
-import { useState } from 'react';
+import { useAuth } from 'hooks/useAuth';
+import { useEffect } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { resetTaskDelete, taskDelete } from 'redux/task/taskAction';
+import { taskSelector } from 'redux/task/taskSlice';
+import { isTokenValid } from 'utils/isTokenValid';
 import { delay } from '../../../../utils/delay';
 import { notify } from '../../../../utils/notification';
 import { BtnLoading } from '../../../UI/BtnLoading';
 
 const TaskDeleteForm = ({ tasks, setTasks, handleClose, deleteId }: any) => {
-  const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+  const { token } = useAuth();
+  const { loading, deleteTaskSuccess } = useAppSelector(
+    taskSelector
+  ) as any;
 
   const handleSubmit = async () => {
-    setLoading(true);
-    await delay(3000);
-    handleClose();
-    const newData = tasks.filter((task: any) => task.id !== deleteId);
-    setTasks(newData);
 
-    setLoading(false);
-    notify('Task Deleted successfully', 'task-delete-form', 'success');
+    if (token && isTokenValid(token)) {
+      dispatch(taskDelete(deleteId, token));
+    } else {
+      notify('User Session Expired', 'session-expire-form', 'warning');
+      await delay(2000);
+      <Navigate to={'/login'} state={{ from: location }} replace />;
+    }
   };
+
+  useEffect(() => {
+    if (deleteTaskSuccess) {
+      handleClose();
+      const newData = tasks?.filter((task: any) => task._id !== deleteId);
+
+      setTasks(newData);
+
+      notify('Post Deleted successfully', 'post-delete-form', 'success');
+      dispatch(resetTaskDelete());
+    }
+  }, [dispatch, deleteTaskSuccess]);
 
   return (
     <>

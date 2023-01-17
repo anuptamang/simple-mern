@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_URL, configHeaders } from '../../configs';
-import { PostProps, createPost, createPostError, createPostSuccess, deletePost, deletePostError, deletePostSuccess, readPosts, readPostsError, readPostsSuccess, updatePost, updatePostError, updatePostSuccess, resetCreatePost, resetUpdatePost, resetDeletePost, readSinglePost, readSinglePostSuccess, readSinglePostError } from './postSlice';
+import { PostProps, createPost, createPostError, createPostSuccess, deletePost, deletePostError, deletePostSuccess, readPosts, readPostsError, readPostsSuccess, updatePost, updatePostError, updatePostSuccess, resetCreatePost, resetUpdatePost, resetDeletePost, readSinglePost, readSinglePostSuccess, readSinglePostError, addLike, addLikeSuccess, addLikeError, removeLike, removeLikeSuccess, removeLikeError } from './postSlice';
 
 type DispatchCreatePostProps = {
   payload: PostProps | undefined
@@ -29,6 +29,14 @@ type DispatchUpdatePostProps = {
   type: 'post/updatePost' | 'post/updatePostSuccess' | 'post/updatePostError';
 };
 
+type DispatchAddLikeProps = {
+  type: 'post/addLike' | 'post/addLikeSuccess' | 'post/addLikeError';
+};
+
+type DispatchRemoveLikeProps = {
+  type: 'post/removeLike' | 'post/removeLikeSuccess' | 'post/removeLikeError';
+};
+
 type DispatchDeletePostProps = {
   type: 'post/deletePost' | 'post/deletePostSuccess' | 'post/deletePostError';
 };
@@ -42,7 +50,8 @@ interface PostCreatePayloadProps {
 }
 
 interface PatchPostPayloadProps {
-  body: string
+  body?: string,
+  likes?: number
 }
 
 export const postCreate = (payload: PostCreatePayloadProps, token: string) =>
@@ -90,6 +99,29 @@ export const postUpdate = (payload: PatchPostPayloadProps, postId: string, token
       dispatch(updatePostSuccess(response.data));
     } catch (err: any) {
       dispatch(updatePostError(err));
+    }
+  };
+
+export const addLikes = (postId: string) =>
+  async (dispatch: (arg0: DispatchAddLikeProps) => any) => {
+    dispatch(addLike())
+
+    try {
+      const response = await axios.put(`${API_URL}/posts/${postId}/like`)
+      dispatch(addLikeSuccess(response.data));
+    } catch (err: any) {
+      dispatch(addLikeError(err));
+    }
+  };
+export const removeLikes = (postId: string) =>
+  async (dispatch: (arg0: DispatchRemoveLikeProps) => any) => {
+    dispatch(removeLike())
+
+    try {
+      const response = await axios.delete(`${API_URL}/posts/${postId}/like`)
+      dispatch(removeLikeSuccess(response.data));
+    } catch (err: any) {
+      dispatch(removeLikeError(err));
     }
   };
 

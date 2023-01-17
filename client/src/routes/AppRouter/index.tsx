@@ -14,6 +14,7 @@ const NotFound = lazy(() => import('../../pages/NotFound'));
 
 const User = lazy(() => import('../../pages/User'));
 const Dashboard = lazy(() => import('../../pages/User/Dashboard'));
+const UserSettings = lazy(() => import('../../pages/User/Settings'));
 const Posts = lazy(() => import('../../pages/Posts'));
 const Tasks = lazy(() => import('../../pages/Tasks'));
 
@@ -36,6 +37,7 @@ const AppRouter = () => {
           <Route path="user" element={<PrivateRoute redirect="/login" />}>
             <Route index element={<User />} />
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="settings" element={<UserSettings />} />
             <Route path="posts" element={<Posts />} />
             <Route path="tasks" element={<Tasks />} />
           </Route>

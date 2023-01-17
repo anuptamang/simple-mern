@@ -1,4 +1,5 @@
-import jwtDecode from 'jwt-decode';
+import { isTokenValid } from 'utils/isTokenValid';
+import { notify } from 'utils/notification';
 import { authSelector } from '../redux/auth/authSlice';
 import { useAppSelector } from '../redux/hooks';
 
@@ -9,8 +10,8 @@ function useAuth() {
   };
 
   if (auth?.token) {
-    const decodedToken = jwtDecode(auth.token) as any;
-    if (decodedToken?.exp * 1000 < Date.now()) {
+    if (!isTokenValid(auth.token)) {
+      notify('User Session Expired', 'session-expire-form', 'warning');
       localStorage.removeItem('user');
       validAuth.token = null;
     }

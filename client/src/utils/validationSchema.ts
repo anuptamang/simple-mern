@@ -67,5 +67,9 @@ export const postCreateFormSchema = yup.object({
 });
 
 export const tasksSchema = yup.object({
-  title: textValidation,
+  task: textValidation,
+});
+
+export const userInfoSchema = yup.object({
+  fullName: textValidation
 });

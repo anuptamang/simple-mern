@@ -36,7 +36,7 @@ const Header = (props: Props) => {
   const auth = useAuth();
 
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { loading } = useAppSelector(authSelector);
+  const { loading } = useAppSelector(authSelector) as any;
   const dispatch = useAppDispatch();
 
   const handleDrawerToggle = () => {
@@ -254,7 +254,7 @@ const Header = (props: Props) => {
                             color: '#f1f1f1',
                           },
                         }}
-                        href="/user"
+                        href="/user/settings"
                       >
                         Settings
                       </NavLink>

@@ -3,14 +3,16 @@ import dayjs from 'dayjs';
 import { useAuth } from 'hooks/useAuth';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { postSelector } from 'redux/post/postSlice';
 import { notify } from 'utils/notification';
 import { postCreate, resetPostCreate } from '../../../../redux/post/postAction';
-import { PostProps } from '../../../../types/post';
+import { PostBlockProps } from '../../../../types/post';
 import { postCreateFormSchema } from '../../../../utils/validationSchema';
 import PostForm from '../../../UI/CreateForm';
+import { delay } from 'utils/delay';
+import { isTokenValid } from 'utils/isTokenValid';
 
 type IFormInput = {
   id?: string | number;
@@ -23,6 +25,7 @@ type IFormInput = {
 
 const PostCreateForm = ({ setRows, handleClose }: any) => {
   const auth = useAuth();
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const { loading, createPostSuccess, createPost } = useAppSelector(
     postSelector
@@ -40,12 +43,12 @@ const PostCreateForm = ({ setRows, handleClose }: any) => {
   });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    if (auth?.token) {
-      console.log(auth.token);
+    if (auth?.token && isTokenValid(auth.token)) {
       dispatch(postCreate(data, auth.token));
     } else {
-      <Navigate to={'/login'} />;
       notify('User Session Expired', 'session-expire-form', 'warning');
+      await delay(2000);
+      <Navigate to={'/login'} state={{ from: location }} replace />;
     }
   };
 
@@ -58,7 +61,7 @@ const PostCreateForm = ({ setRows, handleClose }: any) => {
         body: createPost?.body,
       };
 
-      setRows((prev: PostProps[]) => [...prev, newPost]);
+      setRows((prev: PostBlockProps[]) => [...prev, newPost]);
       reset();
       handleClose();
       notify('Post created successfully', 'post-update-form', 'success');

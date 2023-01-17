@@ -2,11 +2,13 @@ import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { loadState } from '../utils/localStorage';
 import authSlice from './auth/authSlice';
 import postSlice from './post/postSlice';
+import taskSlice from './task/taskSlice';
 
 export const store = configureStore({
   reducer: {
     auth: authSlice,
     post: postSlice,
+    task: taskSlice,
   },
   preloadedState: loadState('user'),
 });

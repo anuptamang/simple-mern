@@ -1,17 +1,17 @@
 import { Box, Grid, Typography } from '@mui/material';
 import { GridActionsCellItem } from '@mui/x-data-grid';
+import dayjs from 'dayjs';
 import { useAuth } from 'hooks/useAuth';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { getAllPosts } from 'redux/post/postAction';
 import { postSelector } from 'redux/post/postSlice';
-import { PostProps } from '../../../types/post';
+import { PostBlockProps } from '../../../types/post';
 import { PostsIcon } from '../../UI/Icons';
 import PostCreate from './PostCreate';
 import PostDelete from './PostDelete';
 import PostEdit from './PostEdit';
 import PostList from './PostList';
-import dayjs from 'dayjs';
 
 export default function PostsBlock() {
   const auth = useAuth();
@@ -29,10 +29,10 @@ export default function PostsBlock() {
     body: post.body,
   }));
 
-  const [rows, setRows] = useState<PostProps[]>(
+  const [rows, setRows] = useState<PostBlockProps[]>(
     userPosts?.length > 0 ? userPosts : []
   );
-  const [editPost, setEditPost] = useState<PostProps>();
+  const [editPost, setEditPost] = useState<PostBlockProps>();
   const [deleteId, setDeleteId] = useState<string>('');
 
   const [open, setOpen] = useState(false);
@@ -50,7 +50,7 @@ export default function PostsBlock() {
   const handleEdit = (id: string) => {
     handleOpenEdit();
     if (rows.length > 0) {
-      const toEdit = rows.find((row: PostProps) => row.id === id);
+      const toEdit = rows.find((row: PostBlockProps) => row.id === id);
       setEditPost(toEdit);
     }
   };
@@ -91,7 +91,12 @@ export default function PostsBlock() {
 
   useEffect(() => {
     dispatch(getAllPosts());
-  }, [dispatch]);
+  }, [
+    dispatch,
+    post?.createPostSuccess,
+    post?.updatePostSuccess,
+    post?.deletePostSuccess,
+  ]);
 
   return (
     <>

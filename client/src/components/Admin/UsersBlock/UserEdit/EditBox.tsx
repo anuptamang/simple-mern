@@ -57,18 +57,18 @@ const EditBox = ({
               <Grid item xs={12} md={6}>
                 <Controller
                   rules={{ required: true }}
-                  name="task"
+                  name="fullName"
                   control={control}
                   render={({ field }) => (
                     <InputForm
                       sx={InputStyles}
                       fullWidth
-                      label="Task"
+                      label="Full Name"
                       {...field}
                     />
                   )}
                 />
-                <p>{errors.task?.message}</p>
+                <p>{errors.fullName?.message}</p>
               </Grid>
               <Grid item xs={12}>
                 <BtnLoading

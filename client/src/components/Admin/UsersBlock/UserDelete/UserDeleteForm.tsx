@@ -1,25 +1,31 @@
 import { Button, Stack, Typography } from '@mui/material';
 import { red } from '@mui/material/colors';
+import { useAuth } from 'hooks/useAuth';
 import { useEffect } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import { resetUserDelete, userDelete } from 'redux/auth/authAction';
+import { authSelector } from 'redux/auth/authSlice';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { postDelete, resetPostDelete } from 'redux/post/postAction';
-import { postSelector } from 'redux/post/postSlice';
+import { UserInfo } from 'types';
+import { isTokenValid } from 'utils/isTokenValid';
+import { delay } from '../../../../utils/delay';
 import { notify } from '../../../../utils/notification';
 import { BtnLoading } from '../../../UI/BtnLoading';
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from 'hooks/useAuth';
-import { delay } from 'utils/delay';
-import { isTokenValid } from 'utils/isTokenValid';
 
-const PostDeleteForm = ({ rows, setRows, handleClose, deleteId }: any) => {
+const UserDeleteForm = ({
+  users,
+  setUsersList,
+  handleClose,
+  deleteId,
+}: any) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { token } = useAuth();
-  const { loading, deletePostSuccess } = useAppSelector(postSelector) as any;
+  const { loading, deleteUserSuccess } = useAppSelector(authSelector) as any;
 
   const handleSubmit = async () => {
     if (token && isTokenValid(token)) {
-      dispatch(postDelete(deleteId, token));
+      dispatch(userDelete(deleteId, token));
     } else {
       notify('User Session Expired', 'session-expire-form', 'warning');
       await delay(2000);
@@ -28,15 +34,16 @@ const PostDeleteForm = ({ rows, setRows, handleClose, deleteId }: any) => {
   };
 
   useEffect(() => {
-    if (deletePostSuccess) {
+    if (deleteUserSuccess) {
       handleClose();
-      const newData = rows.filter((post: any) => post.id !== deleteId);
-      setRows(newData);
+      const newData = users?.filter((user: UserInfo) => user._id !== deleteId);
 
-      notify('Post Deleted successfully', 'post-delete-form', 'success');
-      dispatch(resetPostDelete());
+      setUsersList(newData);
+
+      notify('User Deleted successfully', 'user-delete-form', 'success');
+      dispatch(resetUserDelete());
     }
-  }, [dispatch, deletePostSuccess]);
+  }, [dispatch, deleteUserSuccess]);
 
   return (
     <>
@@ -48,7 +55,7 @@ const PostDeleteForm = ({ rows, setRows, handleClose, deleteId }: any) => {
           marginBottom: '20px',
         }}
       >
-        Do you want to delete this post?
+        Do you want to delete this user?
       </Typography>
       <Stack direction="row" justifyContent="center" spacing={2}>
         <Button
@@ -71,4 +78,4 @@ const PostDeleteForm = ({ rows, setRows, handleClose, deleteId }: any) => {
   );
 };
 
-export default PostDeleteForm;
+export default UserDeleteForm;

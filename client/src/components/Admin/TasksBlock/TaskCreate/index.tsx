@@ -1,29 +1,36 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Grid } from '@mui/material';
-import { useState } from 'react';
+import { useAuth } from 'hooks/useAuth';
+import { useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { v4 as uuidv4 } from 'uuid';
-import { delay } from '../../../../utils/delay';
+import { Navigate, useLocation } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { resetTaskCreate, taskCreate } from 'redux/task/taskAction';
+import { taskSelector } from 'redux/task/taskSlice';
+import { delay } from 'utils/delay';
+import { isTokenValid } from 'utils/isTokenValid';
 import { notify } from '../../../../utils/notification';
 import { tasksSchema } from '../../../../utils/validationSchema';
 import { BtnLoading } from '../../../UI/BtnLoading';
 import { InputForm } from '../../../UI/InputForm';
-import { TaskProps } from '../../../../types/task';
 
 type IFormInput = {
-  title: string;
+  task: string;
   id?: string;
   completed?: boolean;
   pinned?: boolean;
 };
 
 type TaskCreateProps = {
-  tasks: TaskProps[];
   setTasks: any;
 };
 
-const TaskCreate = ({ tasks, setTasks }: TaskCreateProps) => {
-  const [loading, setLoading] = useState(false);
+const TaskCreate = ({ setTasks }: TaskCreateProps) => {
+  const dispatch = useAppDispatch();
+  const { loading, createTaskSuccess, createTask } =
+    useAppSelector(taskSelector);
+  const auth = useAuth();
+  const location = useLocation();
   const {
     control,
     formState: { errors },
@@ -31,22 +38,30 @@ const TaskCreate = ({ tasks, setTasks }: TaskCreateProps) => {
     reset,
   } = useForm<IFormInput>({
     defaultValues: {
-      title: '',
+      task: '',
     },
     resolver: yupResolver(tasksSchema),
   });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    setLoading(true);
-    await delay(3000);
-    setTasks((prev: TaskProps[]) => [
-      ...prev,
-      { id: uuidv4(), title: data.title },
-    ]);
-    reset();
-    setLoading(false);
-    notify('Task created successfully', 'task-create-form', 'success');
+    if (auth?.token && isTokenValid(auth.token)) {
+      dispatch(taskCreate(data, auth.token));
+    } else {
+      notify('User Session Expired', 'session-expire-form', 'warning');
+      await delay(2000);
+      <Navigate to={'/login'} state={{ from: location }} replace />;
+    }
   };
+
+  useEffect(() => {
+    if (createTaskSuccess) {
+      setTasks((prev: any) => [...prev, createTask]);
+      reset();
+      notify('Task created successfully', 'task-create-form', 'success');
+      dispatch(resetTaskCreate());
+    }
+  }, [dispatch, createTaskSuccess]);
+
   return (
     <Box
       onSubmit={handleSubmit(onSubmit)}
@@ -58,13 +73,13 @@ const TaskCreate = ({ tasks, setTasks }: TaskCreateProps) => {
         <Grid item xs={12} md={6}>
           <Controller
             rules={{ required: true }}
-            name="title"
+            name="task"
             control={control}
             render={({ field }) => (
               <InputForm fullWidth label="Type here..." {...field} />
             )}
           />
-          <p>{errors.title?.message}</p>
+          <p>{errors.task?.message}</p>
         </Grid>
         <Grid item xs={4}>
           <BtnLoading

@@ -1,6 +1,7 @@
 export interface TaskProps {
-  title: string;
+  task?: string;
   pinned?: boolean;
   completed?: boolean;
+  _id?: string;
   id?: string;
 }

@@ -4,12 +4,14 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { postSelector } from 'redux/post/postSlice';
 import { postUpdate, resetPostUpdate } from '../../../../redux/post/postAction';
-import { PostProps } from '../../../../types/post';
+import { PostBlockProps } from '../../../../types/post';
 import { notify } from '../../../../utils/notification';
 import { postCreateFormSchema } from '../../../../utils/validationSchema';
 import PostForm from '../../../UI/CreateForm';
 import { useAuth } from 'hooks/useAuth';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
+import { delay } from 'utils/delay';
+import { isTokenValid } from 'utils/isTokenValid';
 
 type IFormInput = {
   id?: string | number;
@@ -22,6 +24,7 @@ type IFormInput = {
 
 const PostEditForm = ({ setRows, rows, handleClose, editPost }: any) => {
   const dispatch = useAppDispatch();
+  const location = useLocation();
   const { token } = useAuth();
 
   const { loading, updatePostSuccess, updatePost } = useAppSelector(
@@ -40,11 +43,12 @@ const PostEditForm = ({ setRows, rows, handleClose, editPost }: any) => {
   });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    if (token) {
+    if (token && isTokenValid(token)) {
       dispatch(postUpdate(data, editPost?.id, token));
     } else {
-      <Navigate to={'/login'} />;
       notify('User Session Expired', 'session-expire-form', 'warning');
+      await delay(2000);
+      <Navigate to={'/login'} state={{ from: location }} replace />;
     }
   };
 
@@ -55,7 +59,7 @@ const PostEditForm = ({ setRows, rows, handleClose, editPost }: any) => {
 
       const updatedPosts = [...rows];
       const index = updatedPosts.findIndex(
-        (post: PostProps) => post.id === editPost.id
+        (post: PostBlockProps) => post.id === editPost.id
       );
 
       updatedPosts[index] = {

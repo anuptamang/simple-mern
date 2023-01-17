@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_URL } from '../../configs';
+import { API_URL, configHeaders } from '../../configs';
 import { AuthTypeProps } from '../../types';
 import { delay } from '../../utils/delay';
 import { notify } from '../../utils/notification';
@@ -13,6 +13,7 @@ import {
   userLogout,
   userLogoutError,
   userLogoutSuccess,
+  deleteUser, deleteUserError, deleteUserSuccess, readUsers, readUsersError, readUsersSuccess, updateUser, updateUserError, updateUserSuccess, resetDeleteUser, readSingleUser, readSingleUserSuccess, readSingleUserError, resetUpdateUser
 } from './authSlice';
 
 interface LoginPayloadProps {
@@ -43,6 +44,95 @@ type DispatchRegisterProps = {
 type DispatchLogoutProps = {
   payload: AuthTypeProps | undefined;
   type: 'auth/userLogout' | 'auth/userLogoutSuccess' | 'auth/userLogoutError';
+};
+
+
+
+
+type DispatchResetDeleteUserProps = {
+  type: 'auth/resetDeleteUser';
+};
+
+
+type DispatchReadUsersProps = {
+  type: 'auth/readUsers' | 'auth/readUsersSuccess' | 'auth/readUsersError';
+};
+
+type DispatchUpdateUserProps = {
+  type: 'auth/updateUser' | 'auth/updateUserSuccess' | 'auth/updateUserError';
+};
+
+
+type DispatchDeleteUserProps = {
+  type: 'auth/deleteUser' | 'auth/deleteUserSuccess' | 'auth/deleteUserError';
+};
+
+type DispatchReadSingleUserProps = {
+  type: 'auth/readSingleUser' | 'auth/readSingleUserSuccess' | 'auth/readSingleUserError';
+};
+
+interface PatchUserPayloadProps {
+  fullName?: string
+}
+
+type DispatchResetUpdateUserProps = {
+  type: 'auth/resetUpdateUser';
+};
+
+export const resetUserDelete = () => async (dispatch: (arg0: DispatchResetDeleteUserProps) => any) => {
+  dispatch(resetDeleteUser());
+}
+
+
+
+export const getAllusers = () => async (dispatch: (arg0: DispatchReadUsersProps) => any) => {
+  dispatch(readUsers());
+
+  try {
+    const response = await axios.get(`${API_URL}/user/list`)
+    dispatch(readUsersSuccess(response.data));
+  } catch (err: any) {
+    dispatch(readUsersError(err));
+  }
+};
+
+export const userUpdate = (payload: PatchUserPayloadProps, userId: string, token: string) =>
+  async (dispatch: (arg0: DispatchUpdateUserProps) => any) => {
+    dispatch(updateUser());
+
+    try {
+      const response = await axios.patch(`${API_URL}/user/${userId}`, payload, configHeaders(token))
+      dispatch(updateUserSuccess(response.data));
+    } catch (err: any) {
+      dispatch(updateUserError(err));
+    }
+  };
+
+export const resetUserUpdate = () => async (dispatch: (arg0: DispatchResetUpdateUserProps) => any) => {
+  dispatch(resetUpdateUser());
+}
+
+export const userDelete = (userId: string, token: string) =>
+  async (dispatch: (arg0: DispatchDeleteUserProps) => any) => {
+    dispatch(deleteUser());
+
+    try {
+      const response = await axios.delete(`${API_URL}/user/${userId}`, configHeaders(token))
+      dispatch(deleteUserSuccess(response.data));
+    } catch (err: any) {
+      dispatch(deleteUserError(err));
+    }
+  };
+
+export const getUserById = (userId: string) => async (dispatch: (arg0: DispatchReadSingleUserProps) => any) => {
+  dispatch(readSingleUser());
+
+  try {
+    const response = await axios.get(`${API_URL}/user/${userId}`)
+    dispatch(readSingleUserSuccess(response.data));
+  } catch (err: any) {
+    dispatch(readSingleUserError(err));
+  }
 };
 
 export const login =
