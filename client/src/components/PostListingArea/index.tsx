@@ -3,7 +3,6 @@ import PostBlock from 'components/PostBlock';
 import { PostBlockProps } from 'types/post';
 
 const PostListingArea = ({ results }: any) => {
-  console.log(results);
   return (
     <Container sx={{ py: '50px' }}>
       <Typography variant="h4" component="h2" sx={{ marginBottom: '20px' }}>

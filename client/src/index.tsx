@@ -7,6 +7,7 @@ import { theme } from './assets/styles/theme';
 import { store } from './redux/store';
 import reportWebVitals from './reportWebVitals';
 import { saveState } from './utils/localStorage';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const App = lazy(() => import('./components/App'));
 

@@ -1,18 +1,20 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import dayjs from 'dayjs';
+import { EditorState, convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 import { useAuth } from 'hooks/useAuth';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { postSelector } from 'redux/post/postSlice';
+import { delay } from 'utils/delay';
+import { isTokenValid } from 'utils/isTokenValid';
 import { notify } from 'utils/notification';
 import { postCreate, resetPostCreate } from '../../../../redux/post/postAction';
 import { PostBlockProps } from '../../../../types/post';
 import { postCreateFormSchema } from '../../../../utils/validationSchema';
 import PostForm from '../../../UI/CreateForm';
-import { delay } from 'utils/delay';
-import { isTokenValid } from 'utils/isTokenValid';
 
 type IFormInput = {
   id?: string | number;
@@ -20,7 +22,10 @@ type IFormInput = {
   author?: string;
   status?: { [x: string]: string }[];
   date?: string | number;
-  body: string;
+  body?: string;
+  tag?: string[];
+  categories?: string[];
+  thumbnail?: any;
 };
 
 const PostCreateForm = ({ setRows, handleClose }: any) => {
@@ -30,6 +35,14 @@ const PostCreateForm = ({ setRows, handleClose }: any) => {
   const { loading, createPostSuccess, createPost } = useAppSelector(
     postSelector
   ) as any;
+
+  const [postBody, setPostBody] = useState(EditorState.createEmpty());
+  const [thumbnail, setThumbnail] = useState<any>(null);
+
+  const onPostBodyChange = (newPostBody: any) => {
+    setPostBody(newPostBody);
+  };
+
   const {
     control,
     formState: { errors },
@@ -37,14 +50,24 @@ const PostCreateForm = ({ setRows, handleClose }: any) => {
     reset,
   } = useForm<IFormInput>({
     defaultValues: {
-      body: '',
+      title: '',
+      categories: [],
+      tag: [],
     },
     resolver: yupResolver(postCreateFormSchema),
   });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    const bodyContent = draftToHtml(convertToRaw(postBody.getCurrentContent()));
+
+    const formData = {
+      ...data,
+      body: bodyContent,
+      thumbnail: thumbnail[0],
+    };
+
     if (auth?.token && isTokenValid(auth.token)) {
-      dispatch(postCreate(data, auth.token));
+      dispatch(postCreate(formData, auth.token));
     } else {
       notify('User Session Expired', 'session-expire-form', 'warning');
       await delay(2000);
@@ -77,6 +100,9 @@ const PostCreateForm = ({ setRows, handleClose }: any) => {
       loading={loading}
       errors={errors}
       formTitle="Create a Post"
+      postBody={postBody}
+      setPostBody={onPostBodyChange}
+      setThumbnail={setThumbnail}
     />
   );
 };

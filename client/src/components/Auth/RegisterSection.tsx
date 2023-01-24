@@ -3,6 +3,9 @@ import { Controller } from 'react-hook-form';
 import Banner from '../UI/Banner';
 import { BtnLoading } from '../UI/BtnLoading';
 import { InputForm } from '../UI/InputForm';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useState } from 'react';
 
 type Iprops = {
   handleSubmit: (s: any) => any;
@@ -21,6 +24,13 @@ const RegisterSection = ({
   bannerUrl,
   loading,
 }: Iprops) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+
+  const handlePassword = () => setShowPassword(!showPassword);
+  const handlePasswordConfirm = () =>
+    setShowPasswordConfirm(!showPasswordConfirm);
+
   return (
     <>
       <Banner imageUrl={bannerUrl} hasChildren={true}>
@@ -103,34 +113,68 @@ const RegisterSection = ({
                       />
                       <p>{errors.phone?.message}</p>
                     </Grid>
-                    <Grid item xs={12} lg={6}>
+                    <Grid item xs={12} lg={6} sx={{ position: 'relative' }}>
                       <Controller
                         rules={{ required: true }}
                         name="password"
                         control={control}
                         render={({ field }) => (
-                          <InputForm
-                            type="password"
-                            fullWidth
-                            label="Password"
-                            {...field}
-                          />
+                          <>
+                            <InputForm
+                              type={showPassword ? 'text' : 'password'}
+                              fullWidth
+                              label="Password"
+                              {...field}
+                            />
+                            <Box
+                              sx={{
+                                cursor: 'pointer',
+                                position: 'absolute',
+                                right: '20px',
+                                top: '50px',
+                              }}
+                              onClick={handlePassword}
+                            >
+                              {showPassword ? (
+                                <VisibilityIcon />
+                              ) : (
+                                <VisibilityOffIcon />
+                              )}
+                            </Box>
+                          </>
                         )}
                       />
                       <p>{errors.password?.message}</p>
                     </Grid>
-                    <Grid item xs={12} lg={6}>
+                    <Grid item xs={12} lg={6} sx={{ position: 'relative' }}>
                       <Controller
                         rules={{ required: true }}
                         name="confirmPassword"
                         control={control}
                         render={({ field }) => (
-                          <InputForm
-                            type="password"
-                            fullWidth
-                            label="Confirm Password"
-                            {...field}
-                          />
+                          <>
+                            <InputForm
+                              type={showPasswordConfirm ? 'text' : 'password'}
+                              fullWidth
+                              label="Confirm Password"
+                              {...field}
+                            />
+                            <Box
+                              sx={{
+                                cursor: 'pointer',
+                                position: 'absolute',
+                                right: '20px',
+                                top: '50px',
+                              }}
+                              onClick={handlePasswordConfirm}
+                            >
+                              {showPasswordConfirm ? (
+                                <VisibilityIcon />
+                              ) : (
+                                <VisibilityOffIcon />
+                              )}
+                            </Box>
+                          </>
                         )}
                       />
                       <p>{errors.confirmPassword?.message}</p>

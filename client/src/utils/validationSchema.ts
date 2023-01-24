@@ -32,6 +32,7 @@ export const messageValidation = yup
   .max(100, 'Last Name must be less than 20 characters');
 
 export const dateValidation = yup.string().required('Required!');
+export const isRequired = yup.string().required('Required!');
 
 export const passwordValidation = yup.string().required('Required!');
 export const confirmPasswordValidation = yup.string().required('Required!').oneOf([yup.ref('password'), null], 'Passwords must match');
@@ -59,11 +60,14 @@ export const registerFormSchema = yup.object({
 });
 
 export const postCreateFormSchema = yup.object({
-  // title: textValidation,
+  title: isRequired,
+  categories: isRequired,
+  tag: isRequired,
+  // thumbnail: isRequired,
   // author: textValidation,
   // status: textValidation,
   // date: dateValidation,
-  body: messageValidation,
+  // body: messageValidation,
 });
 
 export const tasksSchema = yup.object({

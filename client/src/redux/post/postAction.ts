@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_URL, configHeaders } from '../../configs';
+import { API_URL, configHeaders, multiPartConfigHeaders } from '../../configs';
 import { PostProps, createPost, createPostError, createPostSuccess, deletePost, deletePostError, deletePostSuccess, readPosts, readPostsError, readPostsSuccess, updatePost, updatePostError, updatePostSuccess, resetCreatePost, resetUpdatePost, resetDeletePost, readSinglePost, readSinglePostSuccess, readSinglePostError, addLike, addLikeSuccess, addLikeError, removeLike, removeLikeSuccess, removeLikeError } from './postSlice';
 
 type DispatchCreatePostProps = {
@@ -46,12 +46,19 @@ type DispatchReadSinglePostProps = {
 };
 
 interface PostCreatePayloadProps {
-  body: string
+  body?: any,
+  title?: string,
+  thumbnail?: string,
+  categories?: string[],
+  tag?: string[],
 }
 
 interface PatchPostPayloadProps {
-  body?: string,
-  likes?: number
+  body?: any,
+  title?: string,
+  thumbnail?: any,
+  categories?: string[],
+  tag?: string[],
 }
 
 export const postCreate = (payload: PostCreatePayloadProps, token: string) =>
@@ -59,7 +66,7 @@ export const postCreate = (payload: PostCreatePayloadProps, token: string) =>
     dispatch(createPost());
 
     try {
-      const response = await axios.post(`${API_URL}/posts`, payload, configHeaders(token))
+      const response = await axios.post(`${API_URL}/posts`, payload, multiPartConfigHeaders(token))
       dispatch(createPostSuccess(response.data));
     } catch (err: any) {
       dispatch(createPostError(err));

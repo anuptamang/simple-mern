@@ -2,7 +2,11 @@ export interface PostBlockProps {
   id?: string;
   likes?: number;
   _id?: string;
-  body: string;
+  body: any;
+  title: string;
+  categories?: string[];
+  tag?: string[];
+  thumbnail?: string;
   userID?: any;
   createdAt?: string;
   __v?: any;

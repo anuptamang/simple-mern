@@ -27,6 +27,7 @@ export default function PostsBlock() {
     createdAt: dayjs(post.createdAt).format('MMMM D, YYYY'),
     author: auth?.result?.fullName,
     body: post.body,
+    title: post.title,
   }));
 
   const [rows, setRows] = useState<PostBlockProps[]>(
@@ -60,7 +61,7 @@ export default function PostsBlock() {
   };
 
   const columns = [
-    { field: 'body', headerName: 'Post', width: 300, sortable: false },
+    { field: 'title', headerName: 'Post', width: 300, sortable: false },
     // { field: 'status', headerName: 'Status', width: 150, sortable: false },
     { field: 'createdAt', headerName: 'Date', width: 300, sortable: false },
     {

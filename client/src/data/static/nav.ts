@@ -12,6 +12,16 @@ export const nav: NavProps[] = [
   },
   {
     key: 2,
+    text: 'About',
+    to: '/about',
+  },
+  {
+    key: 3,
+    text: 'Portfolio',
+    to: '/portfolio',
+  },
+  {
+    key: 4,
     text: 'Contact',
     to: '/contact',
   },

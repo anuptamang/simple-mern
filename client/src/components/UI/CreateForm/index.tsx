@@ -1,6 +1,8 @@
 import { Box, Grid, Typography } from '@mui/material';
+import { Editor } from 'react-draft-wysiwyg';
 import { Controller } from 'react-hook-form';
 import { BtnLoading } from '../BtnLoading';
+import FileUpload from '../FileUpload';
 import { InputForm } from '../InputForm';
 
 const InputStyles = {
@@ -28,6 +30,9 @@ const CreateForm = ({
   loading,
   errors,
   formTitle,
+  setPostBody,
+  postBody,
+  setThumbnail,
 }: any) => {
   return (
     <Grid container justifyContent="center">
@@ -57,20 +62,85 @@ const CreateForm = ({
               <Grid item xs={12}>
                 <Controller
                   rules={{ required: true }}
-                  name="body"
+                  name="title"
                   control={control}
                   render={({ field }) => (
                     <InputForm
                       sx={InputStyles}
                       multiline
-                      rows={6}
+                      rows={2}
                       fullWidth
-                      label="Body"
+                      label="Title"
                       {...field}
                     />
                   )}
                 />
-                <p>{errors.body?.message}</p>
+                {errors.title?.message && <p>{errors.title?.message}</p>}
+              </Grid>
+              <Grid item xs={12}>
+                <Editor
+                  editorState={postBody}
+                  onEditorStateChange={setPostBody}
+                  placeholder="Body"
+                  editorStyle={{
+                    background: '#BDB2FF',
+                    color: '#333',
+                    padding: '0 42px',
+                    borderRadius: '4px',
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Controller
+                  rules={{ required: true }}
+                  name="tag"
+                  control={control}
+                  render={({ field }) => (
+                    <InputForm
+                      sx={InputStyles}
+                      multiline
+                      rows={2}
+                      fullWidth
+                      label="Tag"
+                      {...field}
+                    />
+                  )}
+                />
+                {errors.tag?.message && <p>{errors.tag?.message}</p>}
+              </Grid>
+              <Grid item xs={12}>
+                <Controller
+                  rules={{ required: true }}
+                  name="categories"
+                  control={control}
+                  render={({ field }) => (
+                    <InputForm
+                      sx={InputStyles}
+                      multiline
+                      rows={2}
+                      fullWidth
+                      label="Categories"
+                      {...field}
+                    />
+                  )}
+                />
+                {errors.categories?.message && (
+                  <p>{errors.categories?.message}</p>
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                <Controller
+                  rules={{ required: true }}
+                  name="thumbnail"
+                  control={control}
+                  render={({ field }) => (
+                    <FileUpload setThumbnail={setThumbnail} />
+                  )}
+                />
+
+                {/* {errors.thumbnail?.message && (
+                  <p>{errors.thumbnail?.message}</p>
+                )} */}
               </Grid>
               <Grid item xs={12}>
                 <BtnLoading

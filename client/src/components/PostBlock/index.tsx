@@ -1,6 +1,6 @@
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { Box, Button, Link, Typography } from '@mui/material';
 import { PostBlockProps } from 'types/post';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 const PostBlock = (post: { data: PostBlockProps }) => {
   return (
@@ -15,6 +15,15 @@ const PostBlock = (post: { data: PostBlockProps }) => {
           padding: '20px',
         }}
       >
+        <img
+          style={{ width: '100%', height: 'auto', display: 'block' }}
+          src={
+            post?.data?.thumbnail
+              ? post.data.thumbnail
+              : 'https://www.jennybeaumont.com/wp-content/uploads/2015/03/placeholder-800x423.gif'
+          }
+          alt={post?.data?.title}
+        />
         <Typography
           variant="h5"
           sx={{
@@ -30,7 +39,7 @@ const PostBlock = (post: { data: PostBlockProps }) => {
               '&:hover': { opacity: 0.7 },
             }}
           >
-            {post?.data.body}
+            {post?.data.title}
           </Link>
         </Typography>
         <Box

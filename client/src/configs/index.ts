@@ -9,3 +9,12 @@ export const configHeaders = (token: string | null) => {
     },
   }
 }
+
+export const multiPartConfigHeaders = (token: string | null) => {
+  return {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
+    },
+  }
+}

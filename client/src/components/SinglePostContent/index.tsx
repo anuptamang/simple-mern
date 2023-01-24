@@ -1,6 +1,7 @@
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import { Box, Container, Typography } from '@mui/material';
+
 import { useRef, useState } from 'react';
 import { UserInfo } from 'types';
 import { PostBlockProps } from 'types/post';
@@ -27,7 +28,7 @@ const SinglePostContent = ({
   const likesRef = useRef<HTMLElement>(null);
   const [count, setCount] = useState(0);
   const [liked, setLiked] = useState(false);
-
+  
   const handleLikes = () => {
     if (count < 1) {
       setLikes((prev: number) => prev + 1);
@@ -57,7 +58,7 @@ const SinglePostContent = ({
             marginBottom: '20px',
           }}
         >
-          {post?.body}
+          {post?.title}
         </Typography>
         <Typography
           sx={{
@@ -86,6 +87,11 @@ const SinglePostContent = ({
             {liked ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
           </Box>
           <Typography>{likes}</Typography>
+        </Box>
+        <Box>
+          {post?.body && (
+            <div dangerouslySetInnerHTML={{ __html: post.body }}></div>
+          )}
         </Box>
       </Box>
     </Container>

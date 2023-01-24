@@ -16,6 +16,8 @@ app.use(bodyParser.urlencoded({ limit: "20mb", extended: true }));
 
 app.use(cors());
 
+app.use(express.static("public"));
+
 app.use("/posts", postRoutes);
 app.use("/user", userRoutes);
 app.use("/task", taskRoutes);

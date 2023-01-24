@@ -4,6 +4,9 @@ import Banner from '../UI/Banner';
 import { Controller } from 'react-hook-form';
 import { InputForm } from '../UI/InputForm';
 import { Link } from 'react-router-dom';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useState } from 'react';
 
 type Iprops = {
   handleSubmit: (s: any) => any;
@@ -22,6 +25,10 @@ const LoginSection = ({
   bannerUrl,
   loading,
 }: Iprops) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handlePassword = () => setShowPassword(!showPassword);
+
   return (
     <>
       <Banner imageUrl={bannerUrl} hasChildren={true}>
@@ -52,7 +59,7 @@ const LoginSection = ({
                   component="form"
                   noValidate
                   autoComplete="off"
-                  sx={{marginBottom:'20px'}}
+                  sx={{ marginBottom: '20px' }}
                 >
                   <Grid
                     container
@@ -70,18 +77,35 @@ const LoginSection = ({
                       />
                       <p>{errors.email?.message}</p>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sx={{ position: 'relative' }}>
                       <Controller
                         rules={{ required: true }}
                         name="password"
                         control={control}
                         render={({ field }) => (
-                          <InputForm
-                            type="password"
-                            fullWidth
-                            label="Password"
-                            {...field}
-                          />
+                          <>
+                            <InputForm
+                              type={showPassword ? 'text' : 'password'}
+                              fullWidth
+                              label="Password"
+                              {...field}
+                            />
+                            <Box
+                              sx={{
+                                cursor: 'pointer',
+                                position: 'absolute',
+                                right: '20px',
+                                top: '50px',
+                              }}
+                              onClick={handlePassword}
+                            >
+                              {showPassword ? (
+                                <VisibilityIcon />
+                              ) : (
+                                <VisibilityOffIcon />
+                              )}
+                            </Box>
+                          </>
                         )}
                       />
                       <p>{errors.password?.message}</p>
@@ -98,6 +122,10 @@ const LoginSection = ({
                     </Grid>
                   </Grid>
                 </Box>
+                <Typography>
+                  Forgot your password?
+                  <Link to="/forgot-password">Click Here</Link>
+                </Typography>
                 <Typography>
                   Don't have an account?{' '}
                   <Link to="/register">Register Now</Link>

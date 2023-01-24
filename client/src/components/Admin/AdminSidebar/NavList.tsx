@@ -1,4 +1,5 @@
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { DashboardIcon, PostsIcon, TasksIcon } from '../../UI/Icons';
 import NavLink from '../../UI/NavLink';
 
@@ -48,6 +49,21 @@ const NavList = () => {
             <TasksIcon sx={{ color: '#fff' }} />
           </ListItemIcon>
           <ListItemText primary="Tasks" />
+        </NavLink>
+      </ListItem>
+      <ListItem>
+        <NavLink
+          href="/user/settings"
+          sx={{
+            color: '#fff',
+            '&.active': { color: '#057aef' },
+            display: 'flex',
+          }}
+        >
+          <ListItemIcon>
+            <SettingsIcon sx={{ color: '#fff' }} />
+          </ListItemIcon>
+          <ListItemText primary="Settings" />
         </NavLink>
       </ListItem>
     </List>

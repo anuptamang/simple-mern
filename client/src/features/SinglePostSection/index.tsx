@@ -1,8 +1,9 @@
 import SinglePostContent from 'components/SinglePostContent';
 import Loading from 'components/UI/Loading';
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
-import { getAllusers, getUserById } from 'redux/auth/authAction';
+import { getAllusers } from 'redux/auth/authAction';
 import { authSelector } from 'redux/auth/authSlice';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { addLikes, getPostById, removeLikes } from 'redux/post/postAction';
@@ -47,15 +48,21 @@ const SinglePostSection = () => {
       {loading ? (
         <Loading />
       ) : (
-        <SinglePostContent
-          post={singlePost}
-          author={author}
-          likes={likes}
-          setLikes={setLikes}
-          handleAddLikes={handleAddLikes}
-          handleRemoveLikes={handleRemoveLikes}
-          likeLoading={likeLoading}
-        />
+        <>
+          <Helmet>
+            <title>{singlePost?.title} | My App</title>
+          </Helmet>
+
+          <SinglePostContent
+            post={singlePost}
+            author={author}
+            likes={likes}
+            setLikes={setLikes}
+            handleAddLikes={handleAddLikes}
+            handleRemoveLikes={handleRemoveLikes}
+            likeLoading={likeLoading}
+          />
+        </>
       )}
     </>
   );

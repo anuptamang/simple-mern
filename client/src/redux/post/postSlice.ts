@@ -1,6 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 export type SinglePostProps = {
-  body?: string;
+  body?: object;
+  title?: string;
+  categories?: string[];
+  tag?: string[];
+  thumbnail?: string;
   createdAt?: string;
   userID?: string;
   __v?: number;
