@@ -11,9 +11,9 @@ function useAuth() {
 
   if (auth?.token) {
     if (!isTokenValid(auth.token)) {
-      notify('User Session Expired', 'session-expire-form', 'warning');
-      localStorage.removeItem('user');
+      localStorage.clear();
       validAuth.token = null;
+      notify('User Session Expired', 'session-expire-form', 'warning');
     }
   }
 

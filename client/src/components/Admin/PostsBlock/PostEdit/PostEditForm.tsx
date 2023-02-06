@@ -1,19 +1,19 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+import { useAuth } from 'hooks/useAuth';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { postSelector } from 'redux/post/postSlice';
+import { delay } from 'utils/delay';
+import { isTokenValid } from 'utils/isTokenValid';
 import { postUpdate, resetPostUpdate } from '../../../../redux/post/postAction';
 import { PostBlockProps } from '../../../../types/post';
 import { notify } from '../../../../utils/notification';
 import { postCreateFormSchema } from '../../../../utils/validationSchema';
 import PostForm from '../../../UI/CreateForm';
-import { useAuth } from 'hooks/useAuth';
-import { Navigate, useLocation } from 'react-router-dom';
-import { delay } from 'utils/delay';
-import { isTokenValid } from 'utils/isTokenValid';
-import draftToHtml from 'draftjs-to-html';
-import { convertFromHTML, convertFromRaw, convertToRaw } from 'draft-js';
 
 const PostEditForm = ({
   setRows,
