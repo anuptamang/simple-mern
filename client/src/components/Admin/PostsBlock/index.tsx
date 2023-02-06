@@ -12,22 +12,34 @@ import PostCreate from './PostCreate';
 import PostDelete from './PostDelete';
 import PostEdit from './PostEdit';
 import PostList from './PostList';
+import { EditorState, ContentState } from 'draft-js';
+import htmlToDraft from 'html-to-draftjs';
 
 export default function PostsBlock() {
   const auth = useAuth();
   const dispatch = useAppDispatch() as any;
   const post = useAppSelector(postSelector) as any;
 
+  const [postBody, setPostBody] = useState(EditorState.createEmpty());
+  const [thumbnail, setThumbnail] = useState<any>(null);
+
+  const onPostBodyChange = (newPostBody: any) => {
+    setPostBody(newPostBody);
+  };
+
   const postsByUserID = post?.posts?.data?.filter(
     (item: any) => item.userID === auth.result?._id
   );
 
-  const userPosts = postsByUserID?.map((post: any) => ({
+  const userPosts = postsByUserID?.map((post: PostBlockProps) => ({
     id: post._id,
     createdAt: dayjs(post.createdAt).format('MMMM D, YYYY'),
     author: auth?.result?.fullName,
     body: post.body,
     title: post.title,
+    thumbnail: post.thumbnail,
+    categories: post.categories,
+    tag: post.tag,
   }));
 
   const [rows, setRows] = useState<PostBlockProps[]>(
@@ -53,6 +65,16 @@ export default function PostsBlock() {
     if (rows.length > 0) {
       const toEdit = rows.find((row: PostBlockProps) => row.id === id);
       setEditPost(toEdit);
+      setThumbnail(toEdit?.thumbnail);
+
+      const blocksFromHtml = htmlToDraft(toEdit?.body);
+      const { contentBlocks, entityMap } = blocksFromHtml;
+      const contentState = ContentState.createFromBlockArray(
+        contentBlocks,
+        entityMap
+      );
+      const editorState = EditorState.createWithContent(contentState);
+      onPostBodyChange(editorState);
     }
   };
   const handleDelete = (id: string) => {
@@ -122,13 +144,25 @@ export default function PostsBlock() {
           <PostsIcon sx={{ color: '#333' }} />
         </Box>
 
-        <PostCreate setRows={setRows} open={open} handleClose={handleClose} />
+        <PostCreate
+          setRows={setRows}
+          open={open}
+          handleClose={handleClose}
+          onPostBodyChange={onPostBodyChange}
+          postBody={postBody}
+          thumbnail={thumbnail}
+          setThumbnail={setThumbnail}
+        />
         <PostEdit
           editPost={editPost}
           setRows={setRows}
           rows={rows}
           open={openEdit}
           handleClose={handleCloseEdit}
+          onPostBodyChange={onPostBodyChange}
+          postBody={postBody}
+          thumbnail={thumbnail}
+          setThumbnail={setThumbnail}
         />
         <PostDelete
           setRows={setRows}

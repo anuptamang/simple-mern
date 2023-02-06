@@ -28,7 +28,7 @@ const SinglePostContent = ({
   const likesRef = useRef<HTMLElement>(null);
   const [count, setCount] = useState(0);
   const [liked, setLiked] = useState(false);
-  
+
   const handleLikes = () => {
     if (count < 1) {
       setLikes((prev: number) => prev + 1);

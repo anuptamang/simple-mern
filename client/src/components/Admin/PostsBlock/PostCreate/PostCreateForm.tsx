@@ -1,9 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import dayjs from 'dayjs';
-import { EditorState, convertToRaw } from 'draft-js';
+import { convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import { useAuth } from 'hooks/useAuth';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
@@ -16,19 +16,14 @@ import { PostBlockProps } from '../../../../types/post';
 import { postCreateFormSchema } from '../../../../utils/validationSchema';
 import PostForm from '../../../UI/CreateForm';
 
-type IFormInput = {
-  id?: string | number;
-  title?: string;
-  author?: string;
-  status?: { [x: string]: string }[];
-  date?: string | number;
-  body?: string;
-  tag?: string[];
-  categories?: string[];
-  thumbnail?: any;
-};
-
-const PostCreateForm = ({ setRows, handleClose }: any) => {
+const PostCreateForm = ({
+  setRows,
+  handleClose,
+  setThumbnail,
+  thumbnail,
+  postBody,
+  onPostBodyChange,
+}: any) => {
   const auth = useAuth();
   const location = useLocation();
   const dispatch = useAppDispatch();
@@ -36,19 +31,12 @@ const PostCreateForm = ({ setRows, handleClose }: any) => {
     postSelector
   ) as any;
 
-  const [postBody, setPostBody] = useState(EditorState.createEmpty());
-  const [thumbnail, setThumbnail] = useState<any>(null);
-
-  const onPostBodyChange = (newPostBody: any) => {
-    setPostBody(newPostBody);
-  };
-
   const {
     control,
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm<IFormInput>({
+  } = useForm<PostBlockProps>({
     defaultValues: {
       title: '',
       categories: [],
@@ -57,7 +45,7 @@ const PostCreateForm = ({ setRows, handleClose }: any) => {
     resolver: yupResolver(postCreateFormSchema),
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+  const onSubmit: SubmitHandler<PostBlockProps> = async (data) => {
     const bodyContent = draftToHtml(convertToRaw(postBody.getCurrentContent()));
 
     const formData = {

@@ -12,17 +12,19 @@ import { useAuth } from 'hooks/useAuth';
 import { Navigate, useLocation } from 'react-router-dom';
 import { delay } from 'utils/delay';
 import { isTokenValid } from 'utils/isTokenValid';
+import draftToHtml from 'draftjs-to-html';
+import { convertFromHTML, convertFromRaw, convertToRaw } from 'draft-js';
 
-type IFormInput = {
-  id?: string | number;
-  title?: string;
-  author?: string;
-  status?: { [x: string]: string }[];
-  date?: string | number;
-  body: string;
-};
-
-const PostEditForm = ({ setRows, rows, handleClose, editPost }: any) => {
+const PostEditForm = ({
+  setRows,
+  rows,
+  handleClose,
+  editPost,
+  postBody,
+  onPostBodyChange,
+  thumbnail,
+  setThumbnail,
+}: any) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { token } = useAuth();
@@ -30,21 +32,33 @@ const PostEditForm = ({ setRows, rows, handleClose, editPost }: any) => {
   const { loading, updatePostSuccess, updatePost } = useAppSelector(
     postSelector
   ) as any;
+
   const {
     control,
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm<IFormInput>({
+  } = useForm<PostBlockProps>({
     defaultValues: {
-      body: editPost.body,
+      title: editPost?.title,
+      categories: editPost?.categories[0]?.toString(),
+      tag: editPost?.tag[0].toString(),
     },
     resolver: yupResolver(postCreateFormSchema),
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+  const onSubmit: SubmitHandler<PostBlockProps> = async (data) => {
+    const bodyContent = draftToHtml(convertToRaw(postBody.getCurrentContent()));
+
+    const formData = {
+      ...data,
+      body: bodyContent,
+      // thumbnail: thumbnail[0].file ? thumbnail[0] : thumbnail,
+    };
+
     if (token && isTokenValid(token)) {
-      dispatch(postUpdate(data, editPost?.id, token));
+      console.log(formData, 'formData');
+      dispatch(postUpdate(formData, editPost?.id, token));
     } else {
       notify('User Session Expired', 'session-expire-form', 'warning');
       await delay(2000);
@@ -81,6 +95,10 @@ const PostEditForm = ({ setRows, rows, handleClose, editPost }: any) => {
       loading={loading}
       errors={errors}
       formTitle="Edit a Post"
+      postBody={postBody}
+      setPostBody={onPostBodyChange}
+      setThumbnail={setThumbnail}
+      thumbnail={thumbnail}
     />
   );
 };

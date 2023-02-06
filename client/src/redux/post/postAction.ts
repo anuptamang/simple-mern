@@ -101,6 +101,8 @@ export const postUpdate = (payload: PatchPostPayloadProps, postId: string, token
   async (dispatch: (arg0: DispatchUpdatePostProps) => any) => {
     dispatch(updatePost());
 
+    console.log(payload)
+
     try {
       const response = await axios.patch(`${API_URL}/posts/${postId}`, payload, configHeaders(token))
       dispatch(updatePostSuccess(response.data));
