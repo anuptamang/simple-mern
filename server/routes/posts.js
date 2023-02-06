@@ -27,7 +27,7 @@ router.delete("/:id", Auth, deletePost);
 router.put("/:id/like", AddLikeToPost);
 router.delete("/:id/like", RemoveLikeFromPost);
 router.get("/:id/comments", allComments);
-router.post("/:id/comments", addCommentToPost);
+router.post("/:id/comments", Auth, addCommentToPost);
 router.patch("/:id/comments/:commentId/like", likeComment);
 router.patch("/:id/comments/:commentId/reply", replyComment);
 router.patch("/:id/viewcount", viewCount);
