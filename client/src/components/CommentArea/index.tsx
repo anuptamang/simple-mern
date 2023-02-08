@@ -1,9 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import { BtnLoading } from 'components/UI/BtnLoading';
-import { InputForm } from 'components/UI/InputForm';
-import UserAvatar from 'components/UserAvatar';
 import { useAuth } from 'hooks/useAuth';
-import { Controller } from 'react-hook-form';
 import { useAppSelector } from 'redux/hooks';
 import { postSelector } from 'redux/post/postSlice';
 import CommentBox from './CommentBox';

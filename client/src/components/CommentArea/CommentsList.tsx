@@ -1,6 +1,3 @@
-import { Box, Typography } from '@mui/material';
-import UserAvatar from 'components/UserAvatar';
-import React from 'react';
 import { Comments } from 'types/post';
 import SingleComment from './SingleComment';
 
@@ -12,7 +9,7 @@ const CommentsList = ({ comments }: CommentsListProps) => {
   return (
     <>
       {comments.map((comment) => (
-        <SingleComment comment={comment} />
+        <SingleComment key={comment._id} comment={comment} />
       ))}
     </>
   );

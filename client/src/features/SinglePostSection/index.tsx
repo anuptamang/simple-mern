@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Helmet } from 'react-helmet';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getAllusers } from 'redux/auth/authAction';
 import { authSelector } from 'redux/auth/authSlice';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
@@ -19,13 +19,13 @@ import {
 } from 'redux/post/postAction';
 import { postSelector, resetAddComment } from 'redux/post/postSlice';
 import { UserInfo } from 'types';
-import { Comments, LikesProps } from 'types/post';
+import { LikesProps } from 'types/post';
 import { delay } from 'utils/delay';
 import { isTokenValid } from 'utils/isTokenValid';
 import { notify } from 'utils/notification';
 import { commentSchema } from 'utils/validationSchema';
 
-type CommentProps = {
+export type CommentProps = {
   text: string;
 };
 

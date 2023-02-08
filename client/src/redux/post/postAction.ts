@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_URL, configHeaders, multiPartConfigHeaders } from '../../configs';
-import { PostProps, createPost, createPostError, createPostSuccess, deletePost, deletePostError, deletePostSuccess, readPosts, readPostsError, readPostsSuccess, updatePost, updatePostError, updatePostSuccess, resetCreatePost, resetUpdatePost, resetDeletePost, readSinglePost, readSinglePostSuccess, readSinglePostError, addLike, addLikeSuccess, addLikeError, removeLike, removeLikeSuccess, removeLikeError, addComment, addCommentSuccess, addCommentError } from './postSlice';
+import { PostProps, createPost, createPostError, createPostSuccess, deletePost, deletePostError, deletePostSuccess, readPosts, readPostsError, readPostsSuccess, updatePost, updatePostError, updatePostSuccess, resetCreatePost, resetUpdatePost, resetDeletePost, readSinglePost, readSinglePostSuccess, readSinglePostError, addLike, addLikeSuccess, addLikeError, removeLike, removeLikeSuccess, removeLikeError, addComment, addCommentSuccess, addCommentError, replyComment, replyCommentSuccess, replyCommentError } from './postSlice';
 import { Comments } from 'types/post';
 import { delay } from 'utils/delay';
 import { notify } from 'utils/notification';
@@ -69,9 +69,18 @@ interface AddCommentPayloadProps {
   userId: string
 }
 
+interface ReplyCommentPayloadProps {
+  text: string
+}
+
 type DispatchAddCommentPostProps = {
   payload: PostProps | undefined
   type: 'post/addComment' | 'post/addCommentSuccess' | 'post/addCommentError';
+};
+
+type DispatchReplyCommentPostProps = {
+  payload: PostProps | undefined
+  type: 'post/replyComment' | 'post/replyCommentSuccess' | 'post/replyCommentError';
 };
 
 export const postCreate = (payload: PostCreatePayloadProps, token: string) =>
@@ -178,5 +187,18 @@ export const commentOnPost = (payload: AddCommentPayloadProps, postId: string, t
       dispatch(addCommentSuccess(response.data));
     } catch (err: any) {
       dispatch(addCommentError(err));
+    }
+  };
+
+export const replyOnComment = (payload: ReplyCommentPayloadProps, postId: string, commentId: string, token: string) =>
+  async (dispatch: (arg0: DispatchReplyCommentPostProps) => any) => {
+    dispatch(replyComment())
+
+    try {
+      const response = await axios.patch(`${API_URL}/posts/${postId}/comments/${commentId}/reply`, payload, configHeaders(token))
+      await delay(3000)
+      dispatch(replyCommentSuccess(response.data));
+    } catch (err: any) {
+      dispatch(replyCommentError(err));
     }
   };

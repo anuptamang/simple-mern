@@ -3,7 +3,6 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import { Box, Container, Typography } from '@mui/material';
 import CommentArea from 'components/CommentArea';
 import CommentsList from 'components/CommentArea/CommentsList';
-import UserAvatar from 'components/UserAvatar';
 import { useAuth } from 'hooks/useAuth';
 
 import { useRef, useState } from 'react';
@@ -104,6 +103,18 @@ const SinglePostContent = ({
           </Box>
           <Typography>{likes}</Typography>
         </Box>
+        <Box sx={{ marginBottom: '20px' }}>
+          <img
+            style={{
+              display: 'block',
+              width: '100%',
+              height: '400px',
+              objectFit: 'cover',
+            }}
+            src={post?.thumbnail}
+            alt={post?.title}
+          />
+        </Box>
         <Box
           sx={{
             marginBottom: '50px',
@@ -129,6 +140,11 @@ const SinglePostContent = ({
           >
             Post a comment
           </Typography>
+          {comments && comments.length < 1 && (
+            <Typography sx={{ marginBottom: '20px' }}>
+              There are no comments yet! Be the first one to comment.
+            </Typography>
+          )}
           {auth?.token ? (
             <CommentArea
               control={control}
@@ -146,8 +162,8 @@ const SinglePostContent = ({
               Your must login to comment. <Link to={'/login'}>Login</Link>
             </Typography>
           )}
-          {comments && comments.length > 0 ? <CommentsList comments={comments} /> : (
-            'There are no comments yet!'
+          {comments && comments.length > 0 && (
+            <CommentsList comments={comments} />
           )}
         </Box>
       </Box>

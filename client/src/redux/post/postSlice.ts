@@ -25,15 +25,18 @@ export type PostProps = {
   deletePost: object | null;
   postAuthor: object | null;
   addComment: SinglePostProps | null;
+  replyComment: SinglePostProps | null;
   loadingSingle: boolean;
   loadingDelete: boolean;
   loadingUpdate: boolean;
   likeLoading: boolean;
   addCommentLoading: boolean;
+  replyCommentLoading: boolean;
   createPostSuccess: boolean;
   updatePostSuccess: boolean;
   deletePostSuccess: boolean;
   addCommentSuccess: boolean;
+  replyCommentSuccess: boolean;
 }
 
 const initialState: PostProps = {
@@ -48,15 +51,18 @@ const initialState: PostProps = {
   deletePost: null,
   postAuthor: null,
   addComment: null,
+  replyComment: null,
   loadingSingle: false,
   loadingDelete: false,
   loadingUpdate: false,
   likeLoading: false,
   addCommentLoading: false,
+  replyCommentLoading: false,
   createPostSuccess: false,
   updatePostSuccess: false,
   deletePostSuccess: false,
-  addCommentSuccess: false
+  addCommentSuccess: false,
+  replyCommentSuccess: false
 }
 
 export const postSlice = createSlice({
@@ -201,6 +207,24 @@ export const postSlice = createSlice({
       state.addComment = {}
       state.addCommentSuccess = false
     },
+    replyComment: (state: typeof initialState) => {
+      state.replyCommentLoading = true
+    },
+
+    replyCommentSuccess: (state, action: PayloadAction<PostProps>) => {
+      state.replyCommentLoading = false
+      state.replyCommentSuccess = true
+      state.replyComment = action.payload
+    },
+    replyCommentError: (state, action: PayloadAction<PostProps>) => {
+      state.replyCommentLoading = false
+      state.replyCommentSuccess = false
+      state.error = action.payload
+    },
+    resetReplyComment: (state: typeof initialState) => {
+      state.replyComment = {}
+      state.replyCommentSuccess = false
+    },
   },
 })
 
@@ -237,7 +261,11 @@ export const {
   addComment,
   addCommentSuccess,
   addCommentError,
-  resetAddComment
+  resetAddComment,
+  replyComment,
+  replyCommentSuccess,
+  replyCommentError,
+  resetReplyComment
 } = postSlice.actions
 
 export default postSlice.reducer
