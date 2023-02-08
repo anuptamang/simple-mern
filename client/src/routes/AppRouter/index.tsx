@@ -61,7 +61,7 @@ const AppRouter = () => {
               <Route path="privacy-policy" element={<UserPrivacyPolicy />} />
             </Route>
           ) : (
-            <Route path="/" element={<General />}>
+            <Route path="/">
               <Route path="privacy-policy" element={<PrivacyPolicy />} />
             </Route>
           )}
