@@ -136,15 +136,16 @@ export const getUserById = (userId: string) => async (dispatch: (arg0: DispatchR
 };
 
 export const login =
-  (payload: LoginPayloadProps, reset: any) =>
+  (payload: LoginPayloadProps, reset: any, navigate: any) =>
     async (dispatch: (arg0: DispatchLoginProps) => any) => {
       dispatch(userLogin());
 
       try {
         const response = await axios.post(`${API_URL}/user/login`, payload);
         dispatch(userLoginSuccess(response.data));
-        notify('Login Successfull', 'login-success', 'success');
         reset();
+        notify('Login Successfull', 'login-success', 'success');
+        navigate(-1);
       } catch (err: any) {
         dispatch(userLoginError(err));
         notify(err.response.data.message, 'login-failed', 'error');
@@ -172,7 +173,7 @@ export const logout =
     dispatch(userLogout());
     try {
       await delay(3000);
-      localStorage.clear();
+      localStorage.removeItem('user');
 
       dispatch(userLogoutSuccess());
     } catch (err: any) {

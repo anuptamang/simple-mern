@@ -4,7 +4,6 @@ import { Controller } from 'react-hook-form';
 import { BtnLoading } from '../BtnLoading';
 import FileUpload from '../FileUpload';
 import { InputForm } from '../InputForm';
-import { convertToRaw } from 'draft-js';
 
 const InputStyles = {
   width: '100%',
@@ -36,7 +35,6 @@ const CreateForm = ({
   setThumbnail,
   thumbnail,
 }: any) => {
-
   return (
     <Grid container justifyContent="center">
       <Grid item xs={12} lg={9}>

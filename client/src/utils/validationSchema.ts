@@ -77,3 +77,7 @@ export const tasksSchema = yup.object({
 export const userInfoSchema = yup.object({
   fullName: textValidation
 });
+
+export const commentSchema = yup.object({
+  text: yup.string().required('Required!')
+});

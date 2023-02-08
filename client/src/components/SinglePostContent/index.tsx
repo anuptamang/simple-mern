@@ -1,8 +1,13 @@
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import { Box, Container, Typography } from '@mui/material';
+import CommentArea from 'components/CommentArea';
+import CommentsList from 'components/CommentArea/CommentsList';
+import UserAvatar from 'components/UserAvatar';
+import { useAuth } from 'hooks/useAuth';
 
 import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { UserInfo } from 'types';
 import { PostBlockProps } from 'types/post';
 
@@ -14,9 +19,18 @@ type SinglePostProps = {
   handleRemoveLikes: any;
   likeLoading: boolean;
   author: UserInfo;
+  onSubmit: any;
+  control: any;
+  handleSubmit: any;
+  errors: any;
+  comments: [];
 };
 
 const SinglePostContent = ({
+  control,
+  handleSubmit,
+  errors,
+  onSubmit,
   post,
   author,
   likes,
@@ -24,10 +38,12 @@ const SinglePostContent = ({
   handleAddLikes,
   handleRemoveLikes,
   likeLoading,
+  comments,
 }: SinglePostProps) => {
   const likesRef = useRef<HTMLElement>(null);
   const [count, setCount] = useState(0);
   const [liked, setLiked] = useState(false);
+  const auth = useAuth();
 
   const handleLikes = () => {
     if (count < 1) {
@@ -88,9 +104,50 @@ const SinglePostContent = ({
           </Box>
           <Typography>{likes}</Typography>
         </Box>
-        <Box>
+        <Box
+          sx={{
+            marginBottom: '50px',
+          }}
+        >
           {post?.body && (
             <div dangerouslySetInnerHTML={{ __html: post.body }}></div>
+          )}
+        </Box>
+        <Box
+          sx={{
+            paddingTop: '20px',
+            borderTop: '1px solid rgba(255,255,255,0.5)',
+            maxWidth: '600px',
+          }}
+        >
+          <Typography
+            variant="h5"
+            sx={{
+              color: '#fff',
+              marginBottom: { xs: '20px' },
+            }}
+          >
+            Post a comment
+          </Typography>
+          {auth?.token ? (
+            <CommentArea
+              control={control}
+              handleSubmit={handleSubmit}
+              onSubmit={onSubmit}
+              errors={errors}
+            />
+          ) : (
+            <Typography
+              sx={{
+                color: '#fff',
+                marginBottom: { xs: '20px', lg: '50px' },
+              }}
+            >
+              Your must login to comment. <Link to={'/login'}>Login</Link>
+            </Typography>
+          )}
+          {comments && comments.length > 0 ? <CommentsList comments={comments} /> : (
+            'There are no comments yet!'
           )}
         </Box>
       </Box>

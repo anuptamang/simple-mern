@@ -1,7 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { Comments } from 'types/post';
 export type SinglePostProps = {
   body?: object;
   title?: string;
+  comments?: Comments[] | [],
   categories?: string[];
   tag?: string[];
   thumbnail?: string;
@@ -22,13 +24,16 @@ export type PostProps = {
   updatePost: object | null;
   deletePost: object | null;
   postAuthor: object | null;
+  addComment: SinglePostProps | null;
   loadingSingle: boolean;
   loadingDelete: boolean;
   loadingUpdate: boolean;
   likeLoading: boolean;
+  addCommentLoading: boolean;
   createPostSuccess: boolean;
   updatePostSuccess: boolean;
   deletePostSuccess: boolean;
+  addCommentSuccess: boolean;
 }
 
 const initialState: PostProps = {
@@ -42,13 +47,16 @@ const initialState: PostProps = {
   updatePost: null,
   deletePost: null,
   postAuthor: null,
+  addComment: null,
   loadingSingle: false,
   loadingDelete: false,
   loadingUpdate: false,
   likeLoading: false,
+  addCommentLoading: false,
   createPostSuccess: false,
   updatePostSuccess: false,
-  deletePostSuccess: false
+  deletePostSuccess: false,
+  addCommentSuccess: false
 }
 
 export const postSlice = createSlice({
@@ -175,6 +183,24 @@ export const postSlice = createSlice({
       state.success = false
       state.error = false
     },
+    addComment: (state: typeof initialState) => {
+      state.addCommentLoading = true
+    },
+
+    addCommentSuccess: (state, action: PayloadAction<PostProps>) => {
+      state.addCommentLoading = false
+      state.addCommentSuccess = true
+      state.addComment = action.payload
+    },
+    addCommentError: (state, action: PayloadAction<PostProps>) => {
+      state.addCommentLoading = false
+      state.addCommentSuccess = false
+      state.error = action.payload
+    },
+    resetAddComment: (state: typeof initialState) => {
+      state.addComment = {}
+      state.addCommentSuccess = false
+    },
   },
 })
 
@@ -208,6 +234,10 @@ export const {
   resetSinglePost,
   resetCreatePost,
   resetUpdatePost,
+  addComment,
+  addCommentSuccess,
+  addCommentError,
+  resetAddComment
 } = postSlice.actions
 
 export default postSlice.reducer

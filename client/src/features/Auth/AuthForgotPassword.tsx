@@ -6,6 +6,7 @@ import { login } from '../../redux/auth/authAction';
 import { authSelector } from '../../redux/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { loginFormSchema } from '../../utils/validationSchema';
+import { useNavigate } from 'react-router-dom';
 
 type IFormInput = {
   email: string;
@@ -15,6 +16,7 @@ type IFormInput = {
 const AuthForgotPassword = () => {
   const { loading } = useAppSelector(authSelector);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const {
     control,
@@ -30,7 +32,9 @@ const AuthForgotPassword = () => {
   });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    dispatch(login({ email: data.email, password: data.password }, reset));
+    dispatch(
+      login({ email: data.email, password: data.password }, reset, navigate)
+    );
   };
 
   return (

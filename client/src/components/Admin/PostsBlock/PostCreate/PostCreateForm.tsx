@@ -1,20 +1,18 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import PostForm from 'components/UI/CreateForm';
 import dayjs from 'dayjs';
 import { convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import { useAuth } from 'hooks/useAuth';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Navigate, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { postCreate, resetPostCreate } from 'redux/post/postAction';
 import { postSelector } from 'redux/post/postSlice';
-import { delay } from 'utils/delay';
+import { PostBlockProps } from 'types/post';
 import { isTokenValid } from 'utils/isTokenValid';
 import { notify } from 'utils/notification';
-import { postCreate, resetPostCreate } from '../../../../redux/post/postAction';
-import { PostBlockProps } from '../../../../types/post';
-import { postCreateFormSchema } from '../../../../utils/validationSchema';
-import PostForm from '../../../UI/CreateForm';
+import { postCreateFormSchema } from 'utils/validationSchema';
 
 const PostCreateForm = ({
   setRows,
@@ -25,7 +23,6 @@ const PostCreateForm = ({
   onPostBodyChange,
 }: any) => {
   const auth = useAuth();
-  const location = useLocation();
   const dispatch = useAppDispatch();
   const { loading, createPostSuccess, createPost } = useAppSelector(
     postSelector
@@ -56,10 +53,6 @@ const PostCreateForm = ({
 
     if (auth?.token && isTokenValid(auth.token)) {
       dispatch(postCreate(formData, auth.token));
-    } else {
-      notify('User Session Expired', 'session-expire-form', 'warning');
-      await delay(2000);
-      <Navigate to={'/login'} state={{ from: location }} replace />;
     }
   };
 

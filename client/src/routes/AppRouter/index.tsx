@@ -11,7 +11,9 @@ const About = lazy(() => import('../../pages/public/About'));
 const Portfolio = lazy(() => import('../../pages/public/Portfolio'));
 const Login = lazy(() => import('../../pages/public/Auth/Login'));
 const Register = lazy(() => import('../../pages/public/Auth/Register'));
-const ForgotPassword = lazy(() => import('../../pages/public/Auth/ForgotPassword'));
+const ForgotPassword = lazy(
+  () => import('../../pages/public/Auth/ForgotPassword')
+);
 const PrivacyPolicy = lazy(() => import('../../pages/public/PrivacyPolicy'));
 const UserPrivacyPolicy = lazy(
   () => import('../../pages/private/User/PrivacyPolicy')

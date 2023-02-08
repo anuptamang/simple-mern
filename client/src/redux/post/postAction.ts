@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { API_URL, configHeaders, multiPartConfigHeaders } from '../../configs';
-import { PostProps, createPost, createPostError, createPostSuccess, deletePost, deletePostError, deletePostSuccess, readPosts, readPostsError, readPostsSuccess, updatePost, updatePostError, updatePostSuccess, resetCreatePost, resetUpdatePost, resetDeletePost, readSinglePost, readSinglePostSuccess, readSinglePostError, addLike, addLikeSuccess, addLikeError, removeLike, removeLikeSuccess, removeLikeError } from './postSlice';
+import { PostProps, createPost, createPostError, createPostSuccess, deletePost, deletePostError, deletePostSuccess, readPosts, readPostsError, readPostsSuccess, updatePost, updatePostError, updatePostSuccess, resetCreatePost, resetUpdatePost, resetDeletePost, readSinglePost, readSinglePostSuccess, readSinglePostError, addLike, addLikeSuccess, addLikeError, removeLike, removeLikeSuccess, removeLikeError, addComment, addCommentSuccess, addCommentError } from './postSlice';
+import { Comments } from 'types/post';
+import { delay } from 'utils/delay';
+import { notify } from 'utils/notification';
 
 type DispatchCreatePostProps = {
   payload: PostProps | undefined
@@ -61,6 +64,16 @@ interface PatchPostPayloadProps {
   tag?: string[],
 }
 
+interface AddCommentPayloadProps {
+  text: string,
+  userId: string
+}
+
+type DispatchAddCommentPostProps = {
+  payload: PostProps | undefined
+  type: 'post/addComment' | 'post/addCommentSuccess' | 'post/addCommentError';
+};
+
 export const postCreate = (payload: PostCreatePayloadProps, token: string) =>
   async (dispatch: (arg0: DispatchCreatePostProps) => any) => {
     dispatch(createPost());
@@ -100,8 +113,6 @@ export const getAllPosts = () => async (dispatch: (arg0: DispatchReadPostsProps)
 export const postUpdate = (payload: PatchPostPayloadProps, postId: string, token: string) =>
   async (dispatch: (arg0: DispatchUpdatePostProps) => any) => {
     dispatch(updatePost());
-
-    console.log(payload)
 
     try {
       const response = await axios.patch(`${API_URL}/posts/${postId}`, payload, configHeaders(token))
@@ -156,3 +167,16 @@ export const getPostById = (postId: string) => async (dispatch: (arg0: DispatchR
     dispatch(readSinglePostError(err));
   }
 };
+
+export const commentOnPost = (payload: AddCommentPayloadProps, postId: string, token: string) =>
+  async (dispatch: (arg0: DispatchAddCommentPostProps) => any) => {
+    dispatch(addComment())
+
+    try {
+      const response = await axios.post(`${API_URL}/posts/${postId}/comments`, payload, configHeaders(token))
+      await delay(3000)
+      dispatch(addCommentSuccess(response.data));
+    } catch (err: any) {
+      dispatch(addCommentError(err));
+    }
+  };
