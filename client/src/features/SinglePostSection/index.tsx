@@ -111,7 +111,7 @@ const SinglePostSection = () => {
         <>
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <Helmet>
-              <title>{singlePost.title} | My App</title>
+              <title>{`${singlePost.title}`} | My App</title>
             </Helmet>
 
             <SinglePostContent
