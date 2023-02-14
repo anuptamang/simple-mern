@@ -1,5 +1,6 @@
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
+import ChatIcon from '@mui/icons-material/Chat';
 import { DashboardIcon, PostsIcon, TasksIcon } from '../../UI/Icons';
 import NavLink from '../../UI/NavLink';
 
@@ -19,6 +20,21 @@ const NavList = () => {
             <DashboardIcon sx={{ color: '#fff' }} />
           </ListItemIcon>
           <ListItemText primary="Dashboard" />
+        </NavLink>
+      </ListItem>
+      <ListItem>
+        <NavLink
+          href="/user/chat"
+          sx={{
+            color: '#fff',
+            '&.active': { color: '#057aef' },
+            display: 'flex',
+          }}
+        >
+          <ListItemIcon>
+            <ChatIcon sx={{ color: '#fff' }} />
+          </ListItemIcon>
+          <ListItemText primary="Chat" />
         </NavLink>
       </ListItem>
       <ListItem>

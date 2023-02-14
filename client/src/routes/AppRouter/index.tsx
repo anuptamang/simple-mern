@@ -25,6 +25,7 @@ const Dashboard = lazy(() => import('../../pages/private/User/Dashboard'));
 const UserSettings = lazy(() => import('../../pages/private/User/Settings'));
 const Posts = lazy(() => import('../../pages/private/Posts'));
 const Tasks = lazy(() => import('../../pages/private/Tasks'));
+const Chat = lazy(() => import('../../pages/private/Chat'));
 
 const SinglePost = lazy(() => import('../../pages/public/SinglePost'));
 
@@ -51,6 +52,7 @@ const AppRouter = () => {
             <Route path="settings" element={<UserSettings />} />
             <Route path="posts" element={<Posts />} />
             <Route path="tasks" element={<Tasks />} />
+            <Route path="chat" element={<Chat />} />
           </Route>
 
           {isAuthenticated ? (
