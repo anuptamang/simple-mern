@@ -3,6 +3,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import ChatIcon from '@mui/icons-material/Chat';
 import { DashboardIcon, PostsIcon, TasksIcon } from '../../UI/Icons';
 import NavLink from '../../UI/NavLink';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const NavList = () => {
   return (
@@ -20,6 +21,21 @@ const NavList = () => {
             <DashboardIcon sx={{ color: '#fff' }} />
           </ListItemIcon>
           <ListItemText primary="Dashboard" />
+        </NavLink>
+      </ListItem>
+      <ListItem>
+        <NavLink
+          href="/user"
+          sx={{
+            color: '#fff',
+            '&.active': { color: '#057aef' },
+            display: 'flex',
+          }}
+        >
+          <ListItemIcon>
+            <AccountCircleIcon sx={{ color: '#fff' }} />
+          </ListItemIcon>
+          <ListItemText primary="Profile" />
         </NavLink>
       </ListItem>
       <ListItem>
