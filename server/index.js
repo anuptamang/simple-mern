@@ -51,9 +51,10 @@ chat.get("/", (req, res) => {
 io.on("connection", (socket) => {
   socket.on("joined", ({ user }) => {
     users[socket.id] = user.email;
+
     socket.emit("welcome", {
       user: "Admin",
-      message: `welcome to the chat ${users[socket.id]}`,
+      message: `Welcome to the chat ${users[socket.id]}`,
     });
   });
 

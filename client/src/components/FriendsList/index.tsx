@@ -25,7 +25,7 @@ const FriendsList = (props: Props) => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (users.length > 0 && auth?.result) {
+    if (users?.length > 0 && auth?.result) {
       const friends = [...users].filter(
         (user: UserInfo) => user._id !== auth.result?._id
       );
