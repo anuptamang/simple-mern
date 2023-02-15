@@ -1,9 +1,7 @@
 import axios from 'axios';
-import { API_URL, configHeaders, multiPartConfigHeaders } from '../../configs';
-import { PostProps, createPost, createPostError, createPostSuccess, deletePost, deletePostError, deletePostSuccess, readPosts, readPostsError, readPostsSuccess, updatePost, updatePostError, updatePostSuccess, resetCreatePost, resetUpdatePost, resetDeletePost, readSinglePost, readSinglePostSuccess, readSinglePostError, addLike, addLikeSuccess, addLikeError, removeLike, removeLikeSuccess, removeLikeError, addComment, addCommentSuccess, addCommentError, replyComment, replyCommentSuccess, replyCommentError } from './postSlice';
-import { Comments } from 'types/post';
 import { delay } from 'utils/delay';
-import { notify } from 'utils/notification';
+import { API_URL, configHeaders, multiPartConfigHeaders } from '../../configs';
+import { PostProps, addComment, addCommentError, addCommentSuccess, addLike, addLikeError, addLikeSuccess, createPost, createPostError, createPostSuccess, deletePost, deletePostError, deletePostSuccess, readPosts, readPostsError, readPostsSuccess, readSinglePost, readSinglePostError, readSinglePostSuccess, removeLike, removeLikeError, removeLikeSuccess, replyComment, replyCommentError, replyCommentSuccess, resetCreatePost, resetDeletePost, resetUpdatePost, updatePost, updatePostError, updatePostSuccess } from './postSlice';
 
 type DispatchCreatePostProps = {
   payload: PostProps | undefined

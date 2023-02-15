@@ -1,9 +1,7 @@
-import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import AuthLogin from '../../../features/Auth/AuthLogin';
-import { useAuth } from '../../../hooks/useAuth';
-import { Helmet } from 'react-helmet';
 import AuthForgotPassword from 'features/Auth/AuthForgotPassword';
+import { Helmet } from 'react-helmet';
+import { Navigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../../../hooks/useAuth';
 
 const ForgotPassword = () => {
   let auth = useAuth();
