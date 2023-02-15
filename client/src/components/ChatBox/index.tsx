@@ -1,17 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Grid, Typography } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import { Box, Typography } from '@mui/material';
+import receiveTone from 'assets/sound/receive.mp3';
+import sentTone from 'assets/sound/sent.mp3';
 import { BtnLoading } from 'components/UI/BtnLoading';
 import { InputForm } from 'components/UI/InputForm';
-import { CommentProps } from 'features/SinglePostSection';
-import React, { useEffect, useState } from 'react';
+import { useAuth } from 'hooks/useAuth';
+import { useEffect, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import socketIO from 'socket.io-client';
 import { commentSchema } from 'utils/validationSchema';
-import { useAuth } from 'hooks/useAuth';
-import SendIcon from '@mui/icons-material/Send';
 import Messages from './Messages';
-import sentTone from 'assets/sound/sent.mp3';
-import receiveTone from 'assets/sound/receive.mp3';
 
 let socket: any;
 const BASE_URL = 'http://localhost:2000';

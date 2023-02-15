@@ -14,11 +14,13 @@ import PostEdit from './PostEdit';
 import PostList from './PostList';
 import { EditorState, ContentState } from 'draft-js';
 import htmlToDraft from 'html-to-draftjs';
+import { useNavigate } from 'react-router-dom';
 
 export default function PostsBlock() {
   const auth = useAuth();
   const dispatch = useAppDispatch() as any;
   const post = useAppSelector(postSelector) as any;
+  const navigate = useNavigate();
 
   const [postBody, setPostBody] = useState(EditorState.createEmpty());
   const [thumbnail, setThumbnail] = useState<any>(null);
@@ -27,24 +29,7 @@ export default function PostsBlock() {
     setPostBody(newPostBody);
   };
 
-  const postsByUserID = post?.posts?.data?.filter(
-    (item: any) => item.userID === auth.result?._id
-  );
-
-  const userPosts = postsByUserID?.map((post: PostBlockProps) => ({
-    id: post._id,
-    createdAt: dayjs(post.createdAt).format('MMMM D, YYYY'),
-    author: auth?.result?.fullName,
-    body: post.body,
-    title: post.title,
-    thumbnail: post.thumbnail,
-    categories: post.categories,
-    tag: post.tag,
-  }));
-
-  const [rows, setRows] = useState<PostBlockProps[]>(
-    userPosts?.length > 0 ? userPosts : []
-  );
+  const [rows, setRows] = useState<PostBlockProps[]>([]);
   const [editPost, setEditPost] = useState<PostBlockProps>();
   const [deleteId, setDeleteId] = useState<string>('');
 
@@ -107,6 +92,11 @@ export default function PostsBlock() {
           onClick={() => handleDelete(params.id)}
           showInMenu
         />,
+        <GridActionsCellItem
+          label="View"
+          onClick={() => navigate(`/posts/${params.id}`)}
+          showInMenu
+        />,
       ],
     },
   ];
@@ -119,6 +109,27 @@ export default function PostsBlock() {
     post?.updatePostSuccess,
     post?.deletePostSuccess,
   ]);
+
+  useEffect(() => {
+    if (post?.posts?.data) {
+      const postsByUserID = post?.posts?.data?.filter(
+        (item: any) => item.userID === auth.result?._id
+      );
+
+      const userPosts = postsByUserID?.map((post: PostBlockProps) => ({
+        id: post._id,
+        createdAt: dayjs(post.createdAt).format('MMMM D, YYYY'),
+        author: auth?.result?.fullName,
+        body: post.body,
+        title: post.title,
+        thumbnail: post.thumbnail,
+        categories: post.categories,
+        tag: post.tag,
+      }));
+
+      setRows(userPosts);
+    }
+  }, [auth.result?._id, auth.result?.fullName, post?.posts?.data]);
 
   return (
     <>

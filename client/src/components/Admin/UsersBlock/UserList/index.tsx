@@ -5,11 +5,11 @@ import { UserInfo } from 'types';
 
 type UsersProps = {
   users: UserInfo[];
-  handleEdit: any;
-  handleDelete: any;
+  handleEdit?: any;
+  handleDelete?: any;
 };
 
-const UsersBlock = ({ users, handleEdit, handleDelete }: UsersProps) => {
+const UsersList = ({ users, handleEdit, handleDelete }: UsersProps) => {
   return (
     <>
       <Box
@@ -131,4 +131,4 @@ const UsersBlock = ({ users, handleEdit, handleDelete }: UsersProps) => {
   );
 };
 
-export default UsersBlock;
+export default UsersList;

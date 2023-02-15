@@ -1,5 +1,5 @@
+import UserProfile from 'components/Admin/UsersBlock/UserProfile';
 import ContentBox from 'components/UI/ContentBox';
-import UsersList from 'features/UsersList';
 import { Helmet } from 'react-helmet';
 
 const User = () => {
@@ -9,7 +9,8 @@ const User = () => {
         <title>User Profile | My App</title>
       </Helmet>
       <ContentBox>
-        <UsersList isProfile={true} />
+        {/* <UsersList isProfile={true} /> */}
+        <UserProfile />
       </ContentBox>
     </>
   );

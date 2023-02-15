@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import UsersListSection from 'components/Admin/UsersBlock';
+import UsersListSection from 'components/Admin/UsersBlock/UserList';
 import UserDelete from 'components/Admin/UsersBlock/UserDelete';
 import UserEdit from 'components/Admin/UsersBlock/UserEdit';
 import Loading from 'components/UI/Loading';
@@ -18,7 +18,7 @@ const UsersList = ({ isProfile }: UsersListProps) => {
   const dispatch = useAppDispatch();
   const auth = useAuth();
   const { users, singleUser, loading } = useAppSelector(authSelector);
-  const [usersList, setUsersList] = useState<any>([]);
+  const [usersList, setUsersList] = useState<UserInfo[]>([]);
 
   const [editItem, setEditItem] = useState<UserInfo>();
   const [deleteId, setDeleteId] = useState<string | undefined>('');
