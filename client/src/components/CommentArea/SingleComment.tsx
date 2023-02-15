@@ -30,8 +30,6 @@ const SingleComment = ({ comment }: { comment: Comments }) => {
   const { id: postId } = useParams();
   const [replies, setReplies] = useState<string[]>(comment.replies);
 
-  // console.log(postId);
-
   const {
     control,
     formState: { errors },
@@ -58,7 +56,6 @@ const SingleComment = ({ comment }: { comment: Comments }) => {
     } else {
       notify('User Session Expired', 'session-expire-form', 'warning');
       await delay(2000);
-      // <Navigate to={'/login'} state={{ from: location }} replace />;
       navigate('/login');
     }
   };

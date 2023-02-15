@@ -66,7 +66,6 @@ const SinglePostSection = () => {
     } else {
       notify('User Session Expired', 'session-expire-form', 'warning');
       await delay(2000);
-      // <Navigate to={'/login'} state={{ from: location }} replace />;
       navigate('/login');
     }
   };

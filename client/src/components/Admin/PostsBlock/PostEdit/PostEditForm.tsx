@@ -53,11 +53,9 @@ const PostEditForm = ({
     const formData = {
       ...data,
       body: bodyContent,
-      // thumbnail: thumbnail[0].file ? thumbnail[0] : thumbnail,
     };
 
     if (token && isTokenValid(token)) {
-      console.log(formData, 'formData');
       dispatch(postUpdate(formData, editPost?.id, token));
     } else {
       notify('User Session Expired', 'session-expire-form', 'warning');

@@ -28,10 +28,6 @@ export const InputForm = styled(TextField)<TextFieldProps>(({ theme }) => ({
     [theme.breakpoints.up('lg')]: {
       padding: '10px 42px',
     },
-
-    '&:focus': {
-      //
-    },
   },
   '& .MuiInputLabel-root': {
     color: '#fff !important',

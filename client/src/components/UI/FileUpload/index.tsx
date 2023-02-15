@@ -6,7 +6,6 @@ const FileUpload = ({ setThumbnail, thumbnail }: any) => {
   const [previewUrl, setPreviewUrl] = useState<null | string>(null);
 
   const handleChange = (file: any) => {
-    console.log(file);
     setThumbnail(file);
     setPreviewUrl(URL.createObjectURL(file[0]));
   };

@@ -81,3 +81,7 @@ export const userInfoSchema = yup.object({
 export const commentSchema = yup.object({
   text: yup.string().required('Required!')
 });
+
+export const chatSchema = yup.object({
+  text: yup.string().required('Required!')
+});

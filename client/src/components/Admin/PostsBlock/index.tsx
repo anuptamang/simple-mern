@@ -84,7 +84,6 @@ export default function PostsBlock() {
 
   const columns = [
     { field: 'title', headerName: 'Post', width: 300, sortable: false },
-    // { field: 'status', headerName: 'Status', width: 150, sortable: false },
     { field: 'createdAt', headerName: 'Date', width: 300, sortable: false },
     {
       field: 'author',
