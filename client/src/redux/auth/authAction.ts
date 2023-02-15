@@ -145,7 +145,7 @@ export const login =
         dispatch(userLoginSuccess(response.data));
         reset();
         notify('Login Successfull', 'login-success', 'success');
-        navigate('/user');
+        navigate('/user/dashboard');
       } catch (err: any) {
         dispatch(userLoginError(err));
         notify(err.response.data.message, 'login-failed', 'error');

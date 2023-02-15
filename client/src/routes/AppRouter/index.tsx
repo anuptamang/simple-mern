@@ -49,6 +49,7 @@ const AppRouter = () => {
           <Route path="user" element={<PrivateRoute redirect="/login" />}>
             <Route index element={<User />} />
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="profile" element={<User />} />
             <Route path="settings" element={<UserSettings />} />
             <Route path="posts" element={<Posts />} />
             <Route path="tasks" element={<Tasks />} />

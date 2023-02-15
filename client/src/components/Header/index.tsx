@@ -235,7 +235,7 @@ const Header = (props: Props) => {
                             color: '#f1f1f1',
                           },
                         }}
-                        href="/user"
+                        href="/user/profile"
                       >
                         Profile
                       </NavLink>

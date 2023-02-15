@@ -25,7 +25,7 @@ const NavList = () => {
       </ListItem>
       <ListItem>
         <NavLink
-          href="/user"
+          href="/user/profile"
           sx={{
             color: '#fff',
             '&.active': { color: '#057aef' },
